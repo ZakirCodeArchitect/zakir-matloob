@@ -41,7 +41,6 @@ export function Philosophy() {
           onClick={() => setOpen(true)}
           className="group relative mx-auto block w-full max-w-[720px]"
         >
-          {/* Polaroid frame */}
           <div className="relative mx-auto aspect-[4/5] w-[min(100%,420px)] rotate-[-6deg] rounded-[18px] bg-[#f4f1ec] p-3 shadow-[0_30px_80px_rgba(0,0,0,0.55)] transition duration-500 group-hover:rotate-[-3deg] group-hover:scale-[1.02] md:w-[min(100%,480px)] md:p-4">
             <div className="relative h-[84%] overflow-hidden rounded-[12px] bg-black">
               <Image
@@ -52,26 +51,15 @@ export function Philosophy() {
                 sizes="(max-width: 768px) 90vw, 480px"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
+              <div className="absolute inset-0 bg-black/20 transition group-hover:bg-black/15" />
+              <span className="absolute inset-0 m-auto flex size-16 items-center justify-center rounded-full border border-white/35 bg-white/12 text-white backdrop-blur-md transition group-hover:bg-white/20 md:size-20">
+                <Play className="ml-1 size-6 fill-current md:size-7" />
+              </span>
             </div>
             <p className="mt-3 px-1 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-black/45 md:text-[11px]">
               Building in production — {site.year}
             </p>
           </div>
-
-          {/* Overlapping manifesto type */}
-          <p
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-1/2 z-20 -translate-y-[48%] text-center font-display text-[12vw] font-extrabold italic uppercase leading-[0.82] tracking-[-0.045em] text-white mix-blend-difference md:text-[6.5vw] lg:text-[5.5rem]"
-          >
-            <span className="block">I engineer</span>
-            <span className="block">systems from</span>
-            <span className="block">the ground up</span>
-          </p>
-
-          <span className="absolute bottom-[18%] left-1/2 z-30 flex size-16 -translate-x-1/2 items-center justify-center rounded-full border border-white/35 bg-white/12 text-white backdrop-blur-md transition group-hover:bg-white/20 md:size-20">
-            <Play className="ml-1 size-6 fill-current md:size-7" />
-          </span>
         </button>
       </Reveal>
 
