@@ -12,7 +12,7 @@ import { productLocations } from "@/lib/data";
 import {
   buildArcGeometry,
   buildCountryGeometries,
-  buildGraticuleGeometry,
+  buildLandDotGrid,
   latLngToVector3,
 } from "@/lib/globe-utils";
 
@@ -20,29 +20,25 @@ export type GlobeVariant = "light" | "dark";
 
 const themes = {
   light: {
-    sphere: "#f5f2ee",
-    dots: "#5c5650",
-    dotSize: 0.014,
-    dotOpacity: 0.95,
-    graticule: "#c5c0b8",
-    graticuleOpacity: 0.18,
-    outline: "#6f6a64",
-    outlineOpacity: 0.55,
+    sphere: "#f7f7f5",
+    dots: "#141414",
+    dotSize: 0.009,
+    dotOpacity: 1,
+    graticuleOpacity: 0,
+    outlineOpacity: 0,
     pin: "#ff4d1c",
-    arc: "#b8b3ac",
-    arcOpacity: 0.5,
+    arcOpacity: 0,
     tooltipBg: "bg-white/95 border-black/8 text-ink",
     tooltipMuted: "text-ink/45",
     autoRotateSpeed: 0.08,
-    fillGridStep: 1.4,
-    borderStep: 1,
+    gridStep: 0.9,
+    showArcs: false,
   },
   dark: {
     sphere: "#030508",
     dots: "#7affb8",
     dotSize: 0.009,
     dotOpacity: 0.55,
-    graticule: "#63ff9c",
     graticuleOpacity: 0,
     outline: "#63ff9c",
     outlineOpacity: 0.92,
@@ -54,6 +50,7 @@ const themes = {
     autoRotateSpeed: 0.12,
     fillGridStep: undefined as number | undefined,
     borderStep: 4,
+    showArcs: true,
   },
 } as const;
 
@@ -70,6 +67,22 @@ function Earth({
   const reduceMotion = useReducedMotion();
   const [collection, setCollection] = useState<FeatureCollection | null>(null);
   const [activePin, setActivePin] = useState<string | null>(null);
+
+  const dotTexture = useMemo(() => {
+    if (variant !== "light" || typeof document === "undefined") return null;
+    const canvas = document.createElement("canvas");
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(32, 32, 30, 0, Math.PI * 2);
+    ctx.fill();
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }, [variant]);
 
   useEffect(() => {
     let cancelled = false;
@@ -90,24 +103,25 @@ function Earth({
     };
   }, [onReady]);
 
-  const { lines, dots } = useMemo(() => {
-    if (!collection) return { lines: null, dots: null };
+  const landDots = useMemo(() => {
+    if (!collection) return null;
+    if (variant === "light") {
+      return buildLandDotGrid(collection, 1.003, themes.light.gridStep);
+    }
     return buildCountryGeometries(collection, 1.002, {
-      borderStep: theme.borderStep,
-      fillGridStep: theme.fillGridStep,
-      includeOutlines: theme.outlineOpacity > 0,
-    });
-  }, [
-    collection,
-    theme.borderStep,
-    theme.fillGridStep,
-    theme.outlineOpacity,
-  ]);
+      borderStep: themes.dark.borderStep,
+      fillGridStep: themes.dark.fillGridStep,
+      includeOutlines: themes.dark.outlineOpacity > 0,
+    }).dots;
+  }, [collection, variant]);
 
-  const graticule = useMemo(
-    () => (variant === "light" ? buildGraticuleGeometry(1.004, 30) : null),
-    [variant],
-  );
+  const outlineLines = useMemo(() => {
+    if (!collection || variant === "light") return null;
+    return buildCountryGeometries(collection, 1.002, {
+      borderStep: themes.dark.borderStep,
+      includeOutlines: true,
+    }).lines;
+  }, [collection, variant]);
 
   const arcs = useMemo(() => {
     if (productLocations.length < 2) return [];
@@ -141,73 +155,75 @@ function Earth({
           <pointLight position={[-4, -2, -5]} intensity={0.35} color="#ff4d1c" />
         </>
       ) : (
-        <directionalLight position={[4, 2, 6]} intensity={0.35} color="#ffffff" />
+        <>
+          <directionalLight position={[3, 2, 5]} intensity={0.55} color="#ffffff" />
+          <directionalLight position={[-3, -2, 2]} intensity={0.12} color="#c8d4e8" />
+        </>
       )}
 
       <group ref={groupRef}>
         <mesh>
           <sphereGeometry args={[0.992, 96, 96]} />
-          <meshBasicMaterial color={theme.sphere} />
+          {variant === "light" ? (
+            <meshLambertMaterial color={theme.sphere} />
+          ) : (
+            <meshBasicMaterial color={theme.sphere} />
+          )}
         </mesh>
 
-        {graticule ? (
-          <lineSegments geometry={graticule}>
+        {outlineLines && variant === "dark" ? (
+          <lineSegments geometry={outlineLines}>
             <lineBasicMaterial
-              color={theme.graticule}
+              color={themes.dark.outline}
               transparent
-              opacity={theme.graticuleOpacity}
+              opacity={themes.dark.outlineOpacity}
             />
           </lineSegments>
         ) : null}
 
-        {lines && theme.outlineOpacity > 0 ? (
-          <lineSegments geometry={lines}>
-            <lineBasicMaterial
-              color={theme.outline}
-              transparent
-              opacity={theme.outlineOpacity}
-            />
-          </lineSegments>
-        ) : null}
-
-        {dots ? (
-          <points geometry={dots}>
+        {landDots ? (
+          <points geometry={landDots}>
             <pointsMaterial
               color={theme.dots}
               size={theme.dotSize}
-              transparent
+              map={dotTexture ?? undefined}
+              alphaTest={dotTexture ? 0.5 : 0}
+              transparent={theme.dotOpacity < 1 || Boolean(dotTexture)}
               opacity={theme.dotOpacity}
               sizeAttenuation
-              depthWrite={false}
+              depthWrite
             />
           </points>
         ) : null}
 
-        {arcs.map((arc, i) => (
-          <lineSegments key={i} geometry={arc}>
-            <lineBasicMaterial
-              color={theme.arc}
-              transparent
-              opacity={theme.arcOpacity}
-            />
-          </lineSegments>
-        ))}
+        {theme.showArcs
+          ? arcs.map((arc, i) => (
+              <lineSegments key={i} geometry={arc}>
+                <lineBasicMaterial
+                  color={themes.dark.arc}
+                  transparent
+                  opacity={themes.dark.arcOpacity}
+                />
+              </lineSegments>
+            ))
+          : null}
 
         {productLocations.map((loc) => {
           const pos = latLngToVector3(loc.lat, loc.lng, 1.015);
           const normal = pos.clone().normalize();
           const active = activePin === loc.id;
+          const pinRadius = variant === "light" ? 0.022 : 0.016;
           return (
             <group key={loc.id} position={pos}>
               <mesh
-                position={normal.clone().multiplyScalar(0.018)}
+                position={normal.clone().multiplyScalar(0.02)}
                 onClick={(e) => {
                   e.stopPropagation();
                   setActivePin(active ? null : loc.id);
                 }}
                 onPointerOver={() => setActivePin(loc.id)}
               >
-                <sphereGeometry args={[0.016, 12, 12]} />
+                <sphereGeometry args={[pinRadius, 16, 16]} />
                 <meshBasicMaterial color={theme.pin} />
               </mesh>
               {active ? (

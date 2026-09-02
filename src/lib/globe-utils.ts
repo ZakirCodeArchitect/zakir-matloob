@@ -34,44 +34,60 @@ function pointInPolygon(lng: number, lat: number, polygon: Ring[]) {
   return true;
 }
 
-function ringBounds(ring: Ring) {
-  let minLat = 90;
-  let maxLat = -90;
-  let minLng = 180;
-  let maxLng = -180;
-  for (const [lng, lat] of ring) {
-    minLat = Math.min(minLat, lat);
-    maxLat = Math.max(maxLat, lat);
-    minLng = Math.min(minLng, lng);
-    maxLng = Math.max(maxLng, lng);
-  }
-  return { minLat, maxLat, minLng, maxLng };
-}
+function collectPolygons(collection: FeatureCollection) {
+  const polygons: Ring[][] = [];
 
-function addDot(
-  dotPositions: number[],
-  lat: number,
-  lng: number,
-  radius: number,
-) {
-  const p = latLngToVector3(lat, lng, radius);
-  dotPositions.push(p.x, p.y, p.z);
-}
+  for (const feature of collection.features) {
+    const geometry = feature.geometry;
+    if (!geometry) continue;
 
-function fillPolygonDots(
-  dotPositions: number[],
-  polygon: Ring[],
-  radius: number,
-  gridStep: number,
-) {
-  const { minLat, maxLat, minLng, maxLng } = ringBounds(polygon[0]);
-  for (let lat = minLat; lat <= maxLat; lat += gridStep) {
-    for (let lng = minLng; lng <= maxLng; lng += gridStep) {
-      if (pointInPolygon(lng, lat, polygon)) {
-        addDot(dotPositions, lat, lng, radius);
+    if (geometry.type === "Polygon") {
+      polygons.push(geometry.coordinates as Ring[]);
+    } else if (geometry.type === "MultiPolygon") {
+      for (const polygon of geometry.coordinates as Ring[][]) {
+        polygons.push(polygon);
       }
     }
   }
+
+  return polygons;
+}
+
+function isOnLand(lng: number, lat: number, polygons: Ring[][]) {
+  for (const polygon of polygons) {
+    if (pointInPolygon(lng, lat, polygon)) return true;
+  }
+  return false;
+}
+
+/** Uniform lat/lng grid of dots clipped to land — matches stippled reference style. */
+export function buildLandDotGrid(
+  collection: FeatureCollection,
+  radius: number,
+  gridStep: number,
+  bounds: { latMin?: number; latMax?: number } = {},
+) {
+  const polygons = collectPolygons(collection);
+  const dotPositions: number[] = [];
+  const latMin = bounds.latMin ?? -58;
+  const latMax = bounds.latMax ?? 84;
+
+  for (let lat = latMin; lat <= latMax; lat += gridStep) {
+    for (let lng = -180; lng < 180; lng += gridStep) {
+      if (isOnLand(lng, lat, polygons)) {
+        const p = latLngToVector3(lat, lng, radius);
+        dotPositions.push(p.x, p.y, p.z);
+      }
+    }
+  }
+
+  const dots = new THREE.BufferGeometry();
+  dots.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(dotPositions, 3),
+  );
+
+  return dots;
 }
 
 export function buildCountryGeometries(
@@ -89,40 +105,48 @@ export function buildCountryGeometries(
     includeOutlines = true,
   } = options;
 
+  const polygons = collectPolygons(collection);
   const linePositions: number[] = [];
   const dotPositions: number[] = [];
 
-  for (const feature of collection.features) {
-    const geometry = feature.geometry;
-    if (!geometry) continue;
-
-    const polygons: Ring[][] =
-      geometry.type === "Polygon"
-        ? [geometry.coordinates as Ring[]]
-        : geometry.type === "MultiPolygon"
-          ? (geometry.coordinates as Ring[][])
-          : [];
-
-    for (const polygon of polygons) {
-      for (const ring of polygon) {
-        if (includeOutlines) {
-          for (let i = 0; i < ring.length - 1; i += 1) {
-            const [lng1, lat1] = ring[i];
-            const [lng2, lat2] = ring[i + 1];
-            const a = latLngToVector3(lat1, lng1, radius);
-            const b = latLngToVector3(lat2, lng2, radius);
-            linePositions.push(a.x, a.y, a.z, b.x, b.y, b.z);
-          }
-        }
-
-        for (let i = 0; i < ring.length; i += borderStep) {
-          const [lng, lat] = ring[i];
-          addDot(dotPositions, lat, lng, radius * 0.998);
+  for (const polygon of polygons) {
+    for (const ring of polygon) {
+      if (includeOutlines) {
+        for (let i = 0; i < ring.length - 1; i += 1) {
+          const [lng1, lat1] = ring[i];
+          const [lng2, lat2] = ring[i + 1];
+          const a = latLngToVector3(lat1, lng1, radius);
+          const b = latLngToVector3(lat2, lng2, radius);
+          linePositions.push(a.x, a.y, a.z, b.x, b.y, b.z);
         }
       }
 
-      if (fillGridStep) {
-        fillPolygonDots(dotPositions, polygon, radius * 0.996, fillGridStep);
+      for (let i = 0; i < ring.length; i += borderStep) {
+        const [lng, lat] = ring[i];
+        const p = latLngToVector3(lat, lng, radius * 0.998);
+        dotPositions.push(p.x, p.y, p.z);
+      }
+    }
+
+    if (fillGridStep) {
+      const ring = polygon[0];
+      let minLat = 90;
+      let maxLat = -90;
+      let minLng = 180;
+      let maxLng = -180;
+      for (const [lng, lat] of ring) {
+        minLat = Math.min(minLat, lat);
+        maxLat = Math.max(maxLat, lat);
+        minLng = Math.min(minLng, lng);
+        maxLng = Math.max(maxLng, lng);
+      }
+      for (let lat = minLat; lat <= maxLat; lat += fillGridStep) {
+        for (let lng = minLng; lng <= maxLng; lng += fillGridStep) {
+          if (pointInPolygon(lng, lat, polygon)) {
+            const p = latLngToVector3(lat, lng, radius * 0.996);
+            dotPositions.push(p.x, p.y, p.z);
+          }
+        }
       }
     }
   }
