@@ -211,35 +211,63 @@ function Earth({
           const pos = latLngToVector3(loc.lat, loc.lng, 1.015);
           const normal = pos.clone().normalize();
           const active = activePin === loc.id;
-          const pinRadius = variant === "light" ? 0.022 : 0.016;
+          const pinRadius = variant === "light" ? 0.011 : 0.012;
           return (
             <group key={loc.id} position={pos}>
-              <mesh
+              <group
                 position={normal.clone().multiplyScalar(0.02)}
                 onClick={(e) => {
                   e.stopPropagation();
                   setActivePin(active ? null : loc.id);
                 }}
                 onPointerOver={() => setActivePin(loc.id)}
+                onPointerOut={() =>
+                  setActivePin((current) =>
+                    current === loc.id ? null : current,
+                  )
+                }
               >
-                <sphereGeometry args={[pinRadius, 16, 16]} />
-                <meshBasicMaterial color={theme.pin} />
-              </mesh>
+                <mesh>
+                  <sphereGeometry args={[pinRadius * 2.4, 16, 16]} />
+                  <meshBasicMaterial
+                    color={theme.pin}
+                    transparent
+                    opacity={0.12}
+                    depthWrite={false}
+                    blending={THREE.AdditiveBlending}
+                  />
+                </mesh>
+                <mesh>
+                  <sphereGeometry args={[pinRadius * 1.55, 16, 16]} />
+                  <meshBasicMaterial
+                    color={theme.pin}
+                    transparent
+                    opacity={0.28}
+                    depthWrite={false}
+                  />
+                </mesh>
+                <mesh>
+                  <sphereGeometry args={[pinRadius, 16, 16]} />
+                  <meshBasicMaterial color={theme.pin} />
+                </mesh>
+              </group>
               {active ? (
                 <Html
-                  distanceFactor={6}
-                  position={normal.clone().multiplyScalar(0.1)}
+                  distanceFactor={2.2}
+                  position={normal.clone().multiplyScalar(0.075)}
                   className="pointer-events-none"
                 >
                   <div
-                    className={`w-max max-w-[180px] rounded-xl border px-3 py-2 shadow-lg backdrop-blur-md ${theme.tooltipBg}`}
+                    className={`w-max max-w-[140px] rounded-lg border px-2.5 py-2 shadow-[0_8px_24px_rgba(30,24,18,0.12)] backdrop-blur-xl ${theme.tooltipBg}`}
                   >
                     <p
-                      className={`font-mono text-[9px] uppercase tracking-[0.14em] ${theme.tooltipMuted}`}
+                      className={`font-mono text-[7px] font-medium uppercase tracking-[0.16em] ${theme.tooltipMuted}`}
                     >
                       {loc.country}
                     </p>
-                    <p className="mt-1 text-xs font-medium">{loc.label}</p>
+                    <p className="mt-1 text-[10px] font-medium leading-tight">
+                      {loc.label}
+                    </p>
                   </div>
                 </Html>
               ) : null}
