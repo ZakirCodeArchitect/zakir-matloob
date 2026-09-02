@@ -5,10 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { site } from "@/lib/data";
-import {
-  FullStackExperienceVisual,
-  ProjectsDeliveredVisual,
-} from "@/components/sections/hero-visuals";
 import { cn } from "@/lib/utils";
 
 const dock = [
@@ -44,66 +40,54 @@ export function Hero() {
             </h1>
           </div>
 
-          <div className="hidden items-end justify-between gap-8 xl:gap-12 lg:flex">
-            <div className="flex items-end gap-5">
-              <ProjectsDeliveredVisual />
-              <div className="relative max-w-[190px] shrink-0 pb-1">
-                <p className="text-right text-sm font-medium leading-snug text-ink/75">
-                  12+ Completed
-                  <br />
-                  Projects
-                </p>
-                <svg
-                  className="absolute top-1/2 -right-24 h-8 w-24 -translate-y-1/2"
-                  viewBox="0 0 120 32"
-                  fill="none"
-                  aria-hidden
-                >
-                  <path d="M0 16 H88" stroke="rgba(10,10,10,0.22)" strokeWidth="1.2" />
-                  <circle cx="98" cy="16" r="6.5" fill="white" stroke="rgba(10,10,10,0.08)" />
-                  <circle cx="98" cy="16" r="2.6" fill="#FF4D1C" />
-                </svg>
-              </div>
+          <div className="hidden items-end justify-between gap-10 lg:flex">
+            <div className="relative max-w-[190px] shrink-0">
+              <p className="text-right text-sm font-medium leading-snug text-ink/75">
+                12+ Completed
+                <br />
+                Projects
+              </p>
+              <svg
+                className="absolute top-1/2 -right-28 h-8 w-28 -translate-y-1/2"
+                viewBox="0 0 120 32"
+                fill="none"
+                aria-hidden
+              >
+                <path d="M0 16 H98" stroke="rgba(10,10,10,0.22)" strokeWidth="1.2" />
+                <circle cx="108" cy="16" r="6.5" fill="white" stroke="rgba(10,10,10,0.08)" />
+                <circle cx="108" cy="16" r="2.6" fill="#FF4D1C" />
+              </svg>
             </div>
 
-            <div className="flex items-end gap-5">
-              <div className="relative w-full max-w-[280px] shrink-0 pb-1">
-                <svg
-                  className="absolute top-8 -left-20 h-8 w-20"
-                  viewBox="0 0 100 32"
-                  fill="none"
-                  aria-hidden
-                >
-                  <circle cx="8" cy="16" r="6.5" fill="white" stroke="rgba(10,10,10,0.08)" />
-                  <circle cx="8" cy="16" r="2.6" fill="#FF4D1C" />
-                  <path d="M16 16 H100" stroke="rgba(10,10,10,0.22)" strokeWidth="1.2" />
-                </svg>
-                <div className="rounded-2xl border border-black/8 bg-white/80 p-4 shadow-[0_16px_40px_rgba(40,30,20,0.08)] backdrop-blur-md">
-                  <p className="text-sm font-semibold text-ink">2+ Years of Experience</p>
-                  <p className="mt-2 text-[12px] leading-relaxed text-ink/65">
-                    Full-stack, applied AI, and SAP-adjacent systems — clean delivery with
-                    enterprise constraints attached.
-                  </p>
-                </div>
+            <div className="relative w-full max-w-[280px] shrink-0">
+              <svg
+                className="absolute top-8 -left-24 h-8 w-24"
+                viewBox="0 0 100 32"
+                fill="none"
+                aria-hidden
+              >
+                <circle cx="8" cy="16" r="6.5" fill="white" stroke="rgba(10,10,10,0.08)" />
+                <circle cx="8" cy="16" r="2.6" fill="#FF4D1C" />
+                <path d="M16 16 H100" stroke="rgba(10,10,10,0.22)" strokeWidth="1.2" />
+              </svg>
+              <div className="rounded-2xl border border-black/8 bg-white/80 p-4 shadow-[0_16px_40px_rgba(40,30,20,0.08)] backdrop-blur-md">
+                <p className="text-sm font-semibold text-ink">2+ Years of Experience</p>
+                <p className="mt-2 text-[12px] leading-relaxed text-ink/65">
+                  Full-stack, applied AI, and SAP-adjacent systems — clean delivery with
+                  enterprise constraints attached.
+                </p>
               </div>
-              <FullStackExperienceVisual />
             </div>
           </div>
         </div>
 
-        <div className="relative z-10 mt-8 grid gap-4 lg:hidden">
-          <div className="flex items-center gap-4">
-            <ProjectsDeliveredVisual />
-            <p className="text-sm font-medium text-ink/80">12+ Completed Projects</p>
-          </div>
-          <div className="flex items-start gap-4">
-            <FullStackExperienceVisual />
-            <div className="min-w-0 flex-1 rounded-2xl border border-white/60 bg-white/55 p-4 backdrop-blur-md">
-              <p className="text-sm font-semibold">2+ Years of Experience</p>
-              <p className="mt-1 text-xs leading-relaxed text-ink/70">
-                Full-stack, AI, and SAP-adjacent systems shipped for real operators.
-              </p>
-            </div>
+        <div className="relative z-10 mt-8 grid gap-3 lg:hidden">
+          <p className="text-sm font-medium text-ink/80">12+ Completed Projects</p>
+          <div className="rounded-2xl border border-white/60 bg-white/55 p-4 backdrop-blur-md">
+            <p className="text-sm font-semibold">2+ Years of Experience</p>
+            <p className="mt-1 text-xs leading-relaxed text-ink/70">
+              Full-stack, AI, and SAP-adjacent systems shipped for real operators.
+            </p>
           </div>
         </div>
 
