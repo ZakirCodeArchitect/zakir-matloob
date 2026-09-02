@@ -57,6 +57,7 @@ export function CaseStudies() {
                 src={current.image}
                 alt={current.title}
                 fill
+                sizes="(max-width: 1440px) 100vw, 1400px"
                 className="object-cover transition duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />

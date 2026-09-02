@@ -20,7 +20,7 @@ export default function JournalPage() {
         {journal.map((post) => (
           <Link key={post.slug} href={`/journal/${post.slug}`} className="group">
             <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
-              <Image src={post.image} alt="" fill className="object-cover transition duration-700 group-hover:scale-105" />
+              <Image src={post.image} alt="" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition duration-700 group-hover:scale-105" />
             </div>
             <p className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-white/50">
               {post.date} · {post.read}

@@ -29,7 +29,7 @@ export function Hero() {
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col px-5 pb-28 pt-24 md:px-8 md:pb-32 md:pt-28">
         <div className="relative mx-auto grid w-full max-w-6xl flex-1 items-center gap-10 lg:grid-cols-[1fr_minmax(280px,420px)] lg:gap-8 xl:gap-12">
-          <div className="flex flex-col justify-center gap-10 lg:gap-14">
+          <div className="order-1 flex flex-col justify-center gap-10 lg:gap-14">
             <div className="max-w-[920px] pt-6 md:pt-0 lg:pt-0">
               <p className="mb-4 font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-ink/45 md:mb-5">
                 {site.shortRole}
@@ -83,23 +83,19 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="relative mx-auto hidden w-full max-w-[420px] lg:block lg:mx-0 lg:max-w-none">
-            <div className="relative aspect-square w-full">
-              <GlobeCanvas variant="light" className="absolute inset-0" />
-            </div>
-          </div>
-        </div>
-
-        <div className="relative z-10 mt-8 grid gap-4 lg:hidden">
-          <div className="relative mx-auto aspect-square w-full max-w-[320px]">
+          {/* One WebGL globe only — dual mounts were doubling Three.js + geo work. */}
+          <div className="order-2 relative mx-auto aspect-square w-full max-w-[320px] lg:mx-0 lg:max-w-none">
             <GlobeCanvas variant="light" className="absolute inset-0" />
           </div>
-          <p className="text-sm font-medium text-ink/80">12+ Completed Projects</p>
-          <div className="rounded-2xl border border-white/60 bg-white/55 p-4 backdrop-blur-md">
-            <p className="text-sm font-semibold">2+ Years of Experience</p>
-            <p className="mt-1 text-xs leading-relaxed text-ink/70">
-              Full-stack, AI, and SAP-adjacent systems shipped for real operators.
-            </p>
+
+          <div className="order-3 grid gap-4 lg:hidden">
+            <p className="text-sm font-medium text-ink/80">12+ Completed Projects</p>
+            <div className="rounded-2xl border border-white/60 bg-white/55 p-4 backdrop-blur-md">
+              <p className="text-sm font-semibold">2+ Years of Experience</p>
+              <p className="mt-1 text-xs leading-relaxed text-ink/70">
+                Full-stack, AI, and SAP-adjacent systems shipped for real operators.
+              </p>
+            </div>
           </div>
         </div>
 

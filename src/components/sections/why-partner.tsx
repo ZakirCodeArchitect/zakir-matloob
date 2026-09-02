@@ -38,14 +38,14 @@ function Visual({ kind }: { kind: "stack" | "wave" | "cloud" | "globe" }) {
   if (kind === "wave") {
     return (
       <div className="relative h-28 overflow-hidden rounded-2xl">
-        <Image src="/images/waveform.png" alt="" fill className="object-cover opacity-90" />
+        <Image src="/images/waveform.png" alt="" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-90" />
       </div>
     );
   }
   if (kind === "globe") {
     return (
       <div className="relative -mb-8 -mr-8 h-40 overflow-hidden rounded-2xl md:absolute md:bottom-0 md:right-0 md:h-56 md:w-[55%]">
-        <Image src="/images/globe-dots.png" alt="" fill className="object-cover" />
+        <Image src="/images/globe-dots.png" alt="" fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover" />
       </div>
     );
   }

@@ -58,7 +58,13 @@ export function ImpactCarousel() {
                   focused ? "h-[460px] w-[280px] md:h-[520px] md:w-[320px]" : "h-[380px] w-[220px] grayscale",
                 )}
               >
-                <Image src={person.image} alt={person.name} fill className="object-cover" />
+                <Image
+                  src={person.image}
+                  alt={person.name}
+                  fill
+                  sizes="(max-width: 768px) 280px, 320px"
+                  className="object-cover"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
                 <span className="absolute inset-0 m-auto flex size-14 items-center justify-center rounded-full bg-white/15 backdrop-blur">
                   <Play className="ml-0.5 size-5 fill-white text-white" />

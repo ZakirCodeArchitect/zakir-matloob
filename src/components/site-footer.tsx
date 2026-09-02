@@ -13,6 +13,7 @@ export function SiteFooter() {
             alt=""
             width={420}
             height={240}
+            sizes="320px"
             className="pointer-events-none absolute -left-8 -top-10 hidden w-64 -rotate-6 object-contain md:block lg:w-80"
           />
           <Image
@@ -20,6 +21,7 @@ export function SiteFooter() {
             alt=""
             width={420}
             height={240}
+            sizes="320px"
             className="pointer-events-none absolute -bottom-16 -right-10 hidden w-72 rotate-12 scale-x-[-1] object-contain opacity-80 md:block"
           />
           <div className="relative z-10 mx-auto max-w-3xl text-center">

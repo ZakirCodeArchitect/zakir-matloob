@@ -33,7 +33,8 @@ const themes = {
     tooltipBg: "bg-white/95 border-black/8 text-ink",
     tooltipMuted: "text-ink/45",
     autoRotateSpeed: 0.08,
-    gridStep: 1.2,
+    // Coarser grid: far fewer point-in-polygon checks on the main thread.
+    gridStep: 1.85,
     showArcs: false,
   },
   dark: {
@@ -176,12 +177,12 @@ function Earth({
       <group ref={groupRef}>
         {theme.hideSphere ? (
           <mesh>
-            <sphereGeometry args={[0.992, 96, 96]} />
+            <sphereGeometry args={[0.992, 64, 64]} />
             <meshBasicMaterial colorWrite={false} depthWrite />
           </mesh>
         ) : (
           <mesh>
-            <sphereGeometry args={[0.992, 96, 96]} />
+            <sphereGeometry args={[0.992, 64, 64]} />
             <meshBasicMaterial color={theme.sphere} />
           </mesh>
         )}
@@ -346,25 +347,56 @@ export function GlobeSceneCanvas({
   onDragStart?: () => void;
   onDragEnd?: () => void;
 }) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        const visible = entry.isIntersecting;
+        setInView(visible);
+        if (visible) setMounted(true);
+      },
+      { rootMargin: "120px", threshold: 0.05 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <Canvas
-      camera={{ position: [0, 0.15, 3.1], fov: 38 }}
-      dpr={[1, 2]}
-      gl={{ antialias: true, alpha: true }}
-      onCreated={({ gl }) => {
-        gl.setClearColor(0x000000, 0);
-      }}
-      style={{ background: "transparent", cursor: "inherit" }}
-      className="touch-none"
-    >
-      {variant === "dark" ? (
-        <Stars radius={80} depth={40} count={1200} factor={3} fade speed={0.4} />
-      ) : null}
-      <Earth
-        variant={variant}
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-      />
-    </Canvas>
+    <div ref={wrapRef} className="h-full w-full">
+      {mounted ? (
+        <Canvas
+          camera={{ position: [0, 0.15, 3.1], fov: 38 }}
+          dpr={[1, 1.5]}
+          frameloop={inView ? "always" : "never"}
+          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+          onCreated={({ gl }) => {
+            gl.setClearColor(0x000000, 0);
+          }}
+          style={{ background: "transparent", cursor: "inherit" }}
+          className="touch-none"
+        >
+          {variant === "dark" ? (
+            <Stars radius={80} depth={40} count={800} factor={3} fade speed={0.4} />
+          ) : null}
+          <Earth
+            variant={variant}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+          />
+        </Canvas>
+      ) : (
+        <div className="flex h-full min-h-[280px] items-center justify-center">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-ink/35">
+            Loading globe…
+          </p>
+        </div>
+      )}
+    </div>
   );
 }

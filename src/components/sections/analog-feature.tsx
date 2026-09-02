@@ -31,7 +31,7 @@ export function AnalogFeature() {
           </h2>
           <div className="relative z-10 mx-auto w-[min(72vw,380px)] -rotate-6 overflow-hidden rounded-[28px] border-[10px] border-[#efe7d6] shadow-[0_40px_80px_rgba(0,0,0,0.55)]">
             <div className="relative aspect-square">
-              <Image src="/images/analog-street.png" alt="" fill className="object-cover" />
+              <Image src="/images/analog-street.png" alt="" fill sizes="(max-width: 768px) 72vw, 380px" className="object-cover" />
             </div>
           </div>
         </div>

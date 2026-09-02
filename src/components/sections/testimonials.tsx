@@ -43,6 +43,7 @@ export function Testimonials() {
                       src={person.image}
                       alt={person.name}
                       fill
+                      sizes="280px"
                       className="object-contain object-bottom p-4 mix-blend-multiply"
                     />
                   </div>

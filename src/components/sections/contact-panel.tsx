@@ -36,6 +36,7 @@ export function ContactPanel() {
         src="/images/contact-bg.png"
         alt=""
         fill
+        sizes="100vw"
         className="object-cover opacity-50"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/30" />

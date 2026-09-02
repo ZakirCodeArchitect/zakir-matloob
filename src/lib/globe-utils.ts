@@ -75,9 +75,26 @@ export function buildCountryDotGrids(
           ? (geometry.coordinates as Ring[][])
           : [];
 
+    let minLng = Infinity;
+    let maxLng = -Infinity;
+    let minLat = Infinity;
+    let maxLat = -Infinity;
+    for (const polygon of polygons) {
+      for (const [lng, lat] of polygon[0] ?? []) {
+        if (lng < minLng) minLng = lng;
+        if (lng > maxLng) maxLng = lng;
+        if (lat < minLat) minLat = lat;
+        if (lat > maxLat) maxLat = lat;
+      }
+    }
+
     return {
       id: String(feature.id ?? index),
       polygons,
+      minLng,
+      maxLng,
+      minLat,
+      maxLat,
       positions: [] as number[],
     };
   });
@@ -92,8 +109,18 @@ export function buildCountryDotGrids(
     const longitudeStep = gridStep / latitudeScale;
 
     for (let lng = -180; lng < 180; lng += longitudeStep) {
-      const country = countries.find(({ polygons }) =>
-        polygons.some((polygon) => pointInPolygon(lng, lat, polygon)),
+      const country = countries.find(
+        ({ polygons, minLng, maxLng, minLat, maxLat }) => {
+          if (
+            lng < minLng ||
+            lng > maxLng ||
+            lat < minLat ||
+            lat > maxLat
+          ) {
+            return false;
+          }
+          return polygons.some((polygon) => pointInPolygon(lng, lat, polygon));
+        },
       );
       if (!country) continue;
 

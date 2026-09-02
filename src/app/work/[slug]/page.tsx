@@ -32,7 +32,7 @@ export default async function CaseStudyPage({
         <h1 className="mt-3 font-condensed text-6xl md:text-8xl">{study.title}</h1>
         <p className="mt-5 max-w-2xl text-lg text-white/70">{study.summary}</p>
         <div className="relative mt-10 aspect-[16/8] overflow-hidden rounded-[28px]">
-          <Image src={study.image} alt={study.title} fill className="object-cover" priority />
+          <Image src={study.image} alt={study.title} fill sizes="(max-width: 1100px) 100vw, 1100px" className="object-cover" priority />
         </div>
         <div className="mt-14 grid gap-10 md:grid-cols-3">
           <Block title="Challenge" body={study.challenge} />
