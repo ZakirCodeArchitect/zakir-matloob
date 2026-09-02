@@ -12,6 +12,7 @@ export const site = {
   description:
     "Zakir Matloob is a software engineer building production web platforms, AI systems, and enterprise SAP-adjacent workflows for organizations that need reliability with taste.",
   url: "https://zakirmatloob.com",
+  portrait: "/images/zakir-portrait.jpg",
   socials: {
     github: "https://github.com/ZakirCodeArchitect",
     linkedin: "https://www.linkedin.com/in/zakir-matloob",

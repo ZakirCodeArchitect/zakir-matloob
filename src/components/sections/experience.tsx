@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/reveal";
-import { experience } from "@/lib/data";
+import { experience, site } from "@/lib/data";
 
 export function Experience() {
   return (
@@ -19,10 +19,11 @@ export function Experience() {
           <div className="relative overflow-hidden rounded-[28px]">
             <div className="relative aspect-[3/4]">
               <Image
-                src="/images/experience-portrait.png"
-                alt="Zakir Matloob"
+                src={site.portrait}
+                alt={site.name}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
+                sizes="(max-width: 1024px) 90vw, 420px"
               />
             </div>
           </div>

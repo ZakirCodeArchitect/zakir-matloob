@@ -21,10 +21,12 @@ export default function AboutPage() {
           <div className="relative overflow-hidden rounded-[28px]">
             <div className="relative aspect-[3/4]">
               <Image
-                src="/images/experience-portrait.png"
+                src={site.portrait}
                 alt={site.name}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 90vw, 480px"
+                priority
               />
             </div>
           </div>

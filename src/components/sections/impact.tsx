@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/reveal";
-import { stats } from "@/lib/data";
+import { site, stats } from "@/lib/data";
 
 export function Impact() {
   return (
@@ -32,10 +32,11 @@ export function Impact() {
           <Reveal delay={0.15} className="hidden lg:block">
             <div className="relative h-48 overflow-hidden rounded-2xl">
               <Image
-                src="/images/impact-portrait.png"
+                src={site.portrait}
                 alt=""
                 fill
-                className="object-cover"
+                className="object-cover object-top"
+                sizes="220px"
               />
             </div>
           </Reveal>
