@@ -82,10 +82,6 @@ textarea {
   text-wrap: balance;
 }
 
-.hero-manifesto-accent {
-  text-shadow: 0 12px 40px rgba(255, 77, 28, 0.18);
-}
-
 .hero-paper-texture {
   background-image:
     linear-gradient(rgba(180, 175, 168, 0.45) 1px, transparent 1px),

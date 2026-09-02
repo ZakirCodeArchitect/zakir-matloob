@@ -32,28 +32,11 @@ export function Hero() {
             <p className="mb-4 font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-ink/45 md:mb-5">
               {site.shortRole}
             </p>
-            <h1 className="hero-manifesto select-none text-left">
+            <h1 className="hero-manifesto max-w-[16ch] select-none text-left font-sans text-[9vw] font-medium leading-[1.12] tracking-[-0.025em] text-[#6b6560] md:max-w-none md:text-[3.4rem] lg:text-[3.85rem]">
               <span className="sr-only">
                 {site.name} — I engineer systems from the ground up
               </span>
-              <span
-                aria-hidden
-                className="block font-condensed text-[13.5vw] uppercase leading-[0.88] tracking-[0.04em] text-ink md:text-[5.5rem]"
-              >
-                I engineer
-              </span>
-              <span
-                aria-hidden
-                className="hero-manifesto-accent -mt-1 block font-condensed text-[17vw] uppercase leading-[0.82] tracking-[0.05em] text-orange md:-mt-3 md:text-[7rem]"
-              >
-                systems
-              </span>
-              <span
-                aria-hidden
-                className="mt-5 block max-w-[22rem] font-display text-[4.5vw] font-medium leading-snug tracking-[-0.03em] text-ink/45 md:mt-8 md:max-w-lg md:text-[1.5rem]"
-              >
-                From the ground up.
-              </span>
+              <span aria-hidden>I Engineer Systems from the Ground up.</span>
             </h1>
           </div>
 
