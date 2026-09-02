@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowUpRight, Github, Linkedin } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
@@ -28,36 +27,11 @@ export function Hero() {
       <HeroTopBar />
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col px-5 pb-28 pt-24 md:px-8 md:pb-32 md:pt-28">
-        <div className="relative mx-auto flex w-full max-w-5xl flex-1 items-end justify-center">
-          {/* Back type — solid condensed, no stroke/blur/pixel */}
-          <p
-            aria-hidden
-            className="pointer-events-none absolute left-1/2 top-[41%] z-0 w-[132%] -translate-x-1/2 -translate-y-1/2 text-center font-condensed text-[17vw] leading-none tracking-[0.04em] text-white select-none [text-rendering:geometricPrecision] md:top-[45%] md:text-[11.5vw]"
-          >
-            DEVELOPER
-          </p>
-
-          <div className="relative z-10 w-full max-w-[500px]">
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-[400px]">
-              <Image
-                src="/images/hero-cutout.png"
-                alt={`${site.name}, software engineer`}
-                fill
-                priority
-                className="object-contain object-bottom"
-                sizes="(max-width: 768px) 90vw, 400px"
-              />
-            </div>
-          </div>
-
-          {/* Front type — hard clip only, no shadow */}
-          <p
-            aria-hidden
-            className="pointer-events-none absolute left-1/2 top-[41%] z-20 w-[132%] -translate-x-1/2 -translate-y-1/2 text-center font-condensed text-[17vw] leading-none tracking-[0.04em] text-white select-none [text-rendering:geometricPrecision] md:top-[45%] md:text-[11.5vw]"
-            style={{ clipPath: "inset(54% 0 0 0)" }}
-          >
-            DEVELOPER
-          </p>
+        <div className="relative mx-auto flex w-full max-w-5xl flex-1 items-center justify-center">
+          <h1 className="pointer-events-none w-[132%] text-center font-condensed text-[17vw] leading-none tracking-[0.04em] text-white select-none [text-rendering:geometricPrecision] md:text-[11.5vw]">
+            <span className="sr-only">{site.name} — software engineer</span>
+            <span aria-hidden>DEVELOPER</span>
+          </h1>
 
           <div className="absolute left-0 top-[46%] z-30 hidden max-w-[190px] lg:block">
             <div className="relative pr-28">
