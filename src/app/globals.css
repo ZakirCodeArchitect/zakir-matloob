@@ -78,6 +78,11 @@ textarea {
   letter-spacing: 0.02em;
 }
 
+.hero-manifesto {
+  text-wrap: balance;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
 .hero-paper-texture {
   background-image:
     linear-gradient(rgba(180, 175, 168, 0.45) 1px, transparent 1px),
