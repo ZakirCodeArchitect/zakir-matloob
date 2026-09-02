@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Geist, Geist_Mono, Pixelify_Sans, Syne } from "next/font/google";
+import { Bebas_Neue, Geist, Geist_Mono, Syne } from "next/font/google";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 import { site } from "@/lib/data";
@@ -26,12 +26,6 @@ const bebas = Bebas_Neue({
   weight: "400",
 });
 
-const pixel = Pixelify_Sans({
-  variable: "--font-pixel",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
-
 export const metadata: Metadata = {
   title: {
     default: `${site.name} — ${site.shortRole}`,
@@ -52,7 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} ${bebas.variable} ${pixel.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} ${bebas.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-paper text-ink">
         <Providers>{children}</Providers>
