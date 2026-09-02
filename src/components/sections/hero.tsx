@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowUpRight, Github, Linkedin } from "lucide-react";
-import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -34,12 +33,7 @@ export function Hero() {
             DEVELOPER
           </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 w-full max-w-[500px]"
-          >
+          <div className="relative z-10 w-full max-w-[500px]">
             <div className="relative mx-auto aspect-[3/4] w-full max-w-[400px]">
               <Image
                 src="/images/hero-cutout.png"
@@ -50,7 +44,7 @@ export function Hero() {
                 sizes="(max-width: 768px) 90vw, 400px"
               />
             </div>
-          </motion.div>
+          </div>
 
           {/* Front type — hard clip only, no shadow */}
           <p
@@ -61,12 +55,7 @@ export function Hero() {
             DEVELOPER
           </p>
 
-          <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.65 }}
-            className="absolute left-0 top-[46%] z-30 hidden max-w-[190px] lg:block"
-          >
+          <div className="absolute left-0 top-[46%] z-30 hidden max-w-[190px] lg:block">
             <div className="relative pr-28">
               <p className="text-right text-sm font-medium leading-snug text-ink/80">
                 12+ Completed
@@ -84,14 +73,9 @@ export function Hero() {
                 <circle cx="108" cy="16" r="2.6" fill="#FF4D1C" />
               </svg>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.65 }}
-            className="absolute right-0 top-[40%] z-30 hidden w-[250px] lg:block"
-          >
+          <div className="absolute right-0 top-[40%] z-30 hidden w-[250px] lg:block">
             <div className="relative pl-24">
               <svg
                 className="absolute top-8 left-0 h-8 w-24"
@@ -111,7 +95,7 @@ export function Hero() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <div className="mt-6 grid gap-3 lg:hidden">
