@@ -27,8 +27,8 @@ export function Hero() {
       <HeroTopBar />
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col px-5 pb-28 pt-24 md:px-8 md:pb-32 md:pt-28">
-        <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center">
-          <div className="relative z-10 max-w-[920px] pt-6 md:pt-0">
+        <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center gap-10 lg:gap-14">
+          <div className="max-w-[920px] pt-6 md:pt-0">
             <p className="mb-4 font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-ink/45 md:mb-5">
               {site.shortRole}
             </p>
@@ -50,22 +50,22 @@ export function Hero() {
               </span>
               <span
                 aria-hidden
-                className="mt-5 block max-w-[22rem] font-display text-[4.5vw] font-medium leading-snug tracking-[-0.03em] text-ink/45 md:mt-8 md:max-w-lg md:text-[1.5rem] md:pl-0.5"
+                className="mt-5 block max-w-[22rem] font-display text-[4.5vw] font-medium leading-snug tracking-[-0.03em] text-ink/45 md:mt-8 md:max-w-lg md:text-[1.5rem]"
               >
                 From the ground up.
               </span>
             </h1>
           </div>
 
-          <div className="absolute bottom-[26%] left-0 z-30 hidden max-w-[190px] lg:block">
-            <div className="relative pr-28">
+          <div className="hidden items-end justify-between gap-10 lg:flex">
+            <div className="relative max-w-[190px] shrink-0">
               <p className="text-right text-sm font-medium leading-snug text-ink/75">
                 12+ Completed
                 <br />
                 Projects
               </p>
               <svg
-                className="absolute top-1/2 right-0 h-8 w-28 -translate-y-1/2"
+                className="absolute top-1/2 -right-28 h-8 w-28 -translate-y-1/2"
                 viewBox="0 0 120 32"
                 fill="none"
                 aria-hidden
@@ -75,12 +75,10 @@ export function Hero() {
                 <circle cx="108" cy="16" r="2.6" fill="#FF4D1C" />
               </svg>
             </div>
-          </div>
 
-          <div className="absolute bottom-[22%] right-0 z-30 hidden w-[250px] lg:block">
-            <div className="relative pl-24">
+            <div className="relative w-full max-w-[280px] shrink-0">
               <svg
-                className="absolute top-8 left-0 h-8 w-24"
+                className="absolute top-8 -left-24 h-8 w-24"
                 viewBox="0 0 100 32"
                 fill="none"
                 aria-hidden
