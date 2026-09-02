@@ -23,7 +23,7 @@ const themes = {
     sphere: "transparent",
     hideSphere: true,
     dots: "#1a1a1a",
-    dotSize: 0.009,
+    dotSize: 0.014,
     dotOpacity: 1,
     graticuleOpacity: 0,
     outlineOpacity: 0,
