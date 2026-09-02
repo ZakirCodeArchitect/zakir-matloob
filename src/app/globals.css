@@ -78,6 +78,25 @@ textarea {
   letter-spacing: 0.02em;
 }
 
+.hero-paper-texture {
+  background-image:
+    linear-gradient(rgba(180, 175, 168, 0.45) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180, 175, 168, 0.45) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center top;
+  opacity: 0.55;
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 75% at 50% 40%,
+    #000 20%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(
+    ellipse 90% 75% at 50% 40%,
+    #000 20%,
+    transparent 78%
+  );
+}
+
 .hero-grid {
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1px),

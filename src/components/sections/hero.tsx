@@ -20,6 +20,10 @@ export function Hero() {
   return (
     <section className="relative min-h-[100svh] overflow-hidden bg-[#e9e5e0] text-ink">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_85%_70%_at_50%_32%,#f7f4f0_0%,#e8e3dd_52%,#d2c9bf_100%)]" />
+      <div
+        aria-hidden
+        className="hero-paper-texture pointer-events-none absolute inset-0"
+      />
 
       <HeroTopBar />
 
