@@ -45,14 +45,22 @@ export const footerNav = {
   ],
 };
 
-export const trusted = [
-  { name: "Fauji Fertilizer", mark: "FFC" },
-  { name: "Metavision IT", mark: "Metavision" },
-  { name: "Har Aik Global", mark: "Har Aik" },
-  { name: "Quaid-i-Azam University", mark: "QAU" },
-  { name: "Amazon Web Services", mark: "AWS" },
-  { name: "Walmart Global Tech", mark: "Walmart" },
-];
+export const skills = [
+  { name: "Next.js", icon: "nextdotjs" },
+  { name: "React", icon: "react" },
+  { name: "TypeScript", icon: "typescript" },
+  { name: "Node.js", icon: "nodedotjs" },
+  { name: "PostgreSQL", icon: "postgresql" },
+  { name: "Python", icon: "python" },
+  { name: "LangChain", icon: "langchain" },
+  { name: "SAP", icon: "sap" },
+  { name: "Docker", icon: "docker" },
+  { name: "GitHub Actions", icon: "githubactions" },
+  { name: "Stripe", icon: "stripe" },
+  { name: "Vercel", icon: "vercel" },
+  { name: "NestJS", icon: "nestjs" },
+  { name: "Git", icon: "git" },
+] as const;
 
 export const stats = [
   {
