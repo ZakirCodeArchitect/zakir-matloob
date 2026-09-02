@@ -26,7 +26,8 @@ const themes = {
     dotSize: 0.014,
     dotOpacity: 1,
     graticuleOpacity: 0,
-    outlineOpacity: 0,
+    outline: "#4f4944",
+    outlineOpacity: 0.42,
     pin: "#ff4d1c",
     arcOpacity: 0,
     tooltipBg: "bg-white/95 border-black/8 text-ink",
@@ -122,7 +123,7 @@ function Earth({
   }, [collection, variant]);
 
   const outlineLines = useMemo(() => {
-    if (!collection || variant === "light") return null;
+    if (!collection) return null;
     return buildCountryGeometries(collection, 1.002, {
       borderStep: themes.dark.borderStep,
       includeOutlines: true,
@@ -163,19 +164,24 @@ function Earth({
       ) : null}
 
       <group ref={groupRef}>
-        {!theme.hideSphere ? (
+        {theme.hideSphere ? (
+          <mesh>
+            <sphereGeometry args={[0.992, 96, 96]} />
+            <meshBasicMaterial colorWrite={false} depthWrite />
+          </mesh>
+        ) : (
           <mesh>
             <sphereGeometry args={[0.992, 96, 96]} />
             <meshBasicMaterial color={theme.sphere} />
           </mesh>
-        ) : null}
+        )}
 
-        {outlineLines && variant === "dark" ? (
+        {outlineLines ? (
           <lineSegments geometry={outlineLines}>
             <lineBasicMaterial
-              color={themes.dark.outline}
+              color={theme.outline}
               transparent
-              opacity={themes.dark.outlineOpacity}
+              opacity={theme.outlineOpacity}
             />
           </lineSegments>
         ) : null}

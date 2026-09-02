@@ -123,6 +123,9 @@ export function buildCountryGeometries(
         for (let i = 0; i < ring.length - 1; i += 1) {
           const [lng1, lat1] = ring[i];
           const [lng2, lat2] = ring[i + 1];
+          // Do not draw a segment across the globe when a boundary crosses
+          // the antimeridian.
+          if (Math.abs(lng2 - lng1) > 180) continue;
           const a = latLngToVector3(lat1, lng1, radius);
           const b = latLngToVector3(lat2, lng2, radius);
           linePositions.push(a.x, a.y, a.z, b.x, b.y, b.z);
