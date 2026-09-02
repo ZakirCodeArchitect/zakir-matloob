@@ -30,9 +30,9 @@ export function Experience() {
         </Reveal>
 
         <div>
-          {experience.map((job, i) => (
+          {experience.slice(0, 2).map((job, i) => (
             <Reveal key={`${job.company}-${job.role}`} delay={i * 0.05}>
-              <article className="border-b border-white/10 py-7 text-left first:pt-0">
+              <article className="border-b border-white/10 py-7 text-left first:pt-0 last:border-b-0">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">
                   {job.company}
                 </p>
