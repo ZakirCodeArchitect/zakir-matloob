@@ -4,6 +4,7 @@ import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { GlobeCanvas } from "@/components/globe/globe-canvas";
 import { site } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -27,61 +28,72 @@ export function Hero() {
       <HeroTopBar />
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col px-5 pb-28 pt-24 md:px-8 md:pb-32 md:pt-28">
-        <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center gap-10 lg:gap-14">
-          <div className="max-w-[920px] pt-6 md:pt-0">
-            <p className="mb-4 font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-ink/45 md:mb-5">
-              {site.shortRole}
-            </p>
-            <h1 className="hero-manifesto max-w-[16ch] select-none text-left font-sans text-[9vw] font-medium leading-[1.12] tracking-[-0.025em] text-[#6b6560] md:max-w-none md:text-[3.4rem] lg:text-[3.85rem]">
-              <span className="sr-only">
-                {site.name} — I engineer systems from the ground up
-              </span>
-              <span aria-hidden>I Engineer Systems from the Ground up.</span>
-            </h1>
-          </div>
-
-          <div className="hidden items-end justify-between gap-10 lg:flex">
-            <div className="relative max-w-[190px] shrink-0">
-              <p className="text-right text-sm font-medium leading-snug text-ink/75">
-                12+ Completed
-                <br />
-                Projects
+        <div className="relative mx-auto grid w-full max-w-6xl flex-1 items-center gap-10 lg:grid-cols-[1fr_minmax(280px,420px)] lg:gap-8 xl:gap-12">
+          <div className="flex flex-col justify-center gap-10 lg:gap-14">
+            <div className="max-w-[920px] pt-6 md:pt-0 lg:pt-0">
+              <p className="mb-4 font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-ink/45 md:mb-5">
+                {site.shortRole}
               </p>
-              <svg
-                className="absolute top-1/2 -right-28 h-8 w-28 -translate-y-1/2"
-                viewBox="0 0 120 32"
-                fill="none"
-                aria-hidden
-              >
-                <path d="M0 16 H98" stroke="rgba(10,10,10,0.22)" strokeWidth="1.2" />
-                <circle cx="108" cy="16" r="6.5" fill="white" stroke="rgba(10,10,10,0.08)" />
-                <circle cx="108" cy="16" r="2.6" fill="#FF4D1C" />
-              </svg>
+              <h1 className="hero-manifesto max-w-[16ch] select-none text-left font-sans text-[9vw] font-medium leading-[1.12] tracking-[-0.025em] text-[#6b6560] md:max-w-none md:text-[3.4rem] lg:text-[3.85rem]">
+                <span className="sr-only">
+                  {site.name} — I engineer systems from the ground up
+                </span>
+                <span aria-hidden>I Engineer Systems from the Ground up.</span>
+              </h1>
             </div>
 
-            <div className="relative w-full max-w-[280px] shrink-0">
-              <svg
-                className="absolute top-8 -left-24 h-8 w-24"
-                viewBox="0 0 100 32"
-                fill="none"
-                aria-hidden
-              >
-                <circle cx="8" cy="16" r="6.5" fill="white" stroke="rgba(10,10,10,0.08)" />
-                <circle cx="8" cy="16" r="2.6" fill="#FF4D1C" />
-                <path d="M16 16 H100" stroke="rgba(10,10,10,0.22)" strokeWidth="1.2" />
-              </svg>
-              <div className="rounded-2xl border border-black/8 bg-white/80 p-4 shadow-[0_16px_40px_rgba(40,30,20,0.08)] backdrop-blur-md">
-                <p className="text-sm font-semibold text-ink">2+ Years of Experience</p>
-                <p className="mt-2 text-[12px] leading-relaxed text-ink/65">
-                  Full-stack, applied AI, and SAP-adjacent systems — clean delivery with
-                  enterprise constraints attached.
+            <div className="hidden items-end justify-between gap-10 lg:flex">
+              <div className="relative max-w-[190px] shrink-0">
+                <p className="text-right text-sm font-medium leading-snug text-ink/75">
+                  12+ Completed
+                  <br />
+                  Projects
                 </p>
+                <svg
+                  className="absolute top-1/2 -right-28 h-8 w-28 -translate-y-1/2"
+                  viewBox="0 0 120 32"
+                  fill="none"
+                  aria-hidden
+                >
+                  <path d="M0 16 H98" stroke="rgba(10,10,10,0.22)" strokeWidth="1.2" />
+                  <circle cx="108" cy="16" r="6.5" fill="white" stroke="rgba(10,10,10,0.08)" />
+                  <circle cx="108" cy="16" r="2.6" fill="#FF4D1C" />
+                </svg>
               </div>
+
+              <div className="relative w-full max-w-[280px] shrink-0">
+                <svg
+                  className="absolute top-8 -left-24 h-8 w-24"
+                  viewBox="0 0 100 32"
+                  fill="none"
+                  aria-hidden
+                >
+                  <circle cx="8" cy="16" r="6.5" fill="white" stroke="rgba(10,10,10,0.08)" />
+                  <circle cx="8" cy="16" r="2.6" fill="#FF4D1C" />
+                  <path d="M16 16 H100" stroke="rgba(10,10,10,0.22)" strokeWidth="1.2" />
+                </svg>
+                <div className="rounded-2xl border border-black/8 bg-white/80 p-4 shadow-[0_16px_40px_rgba(40,30,20,0.08)] backdrop-blur-md">
+                  <p className="text-sm font-semibold text-ink">2+ Years of Experience</p>
+                  <p className="mt-2 text-[12px] leading-relaxed text-ink/65">
+                    Full-stack, applied AI, and SAP-adjacent systems — clean delivery with
+                    enterprise constraints attached.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative mx-auto hidden w-full max-w-[420px] lg:block lg:mx-0 lg:max-w-none">
+            <div className="relative aspect-square w-full">
+              <GlobeCanvas variant="light" className="absolute inset-0" />
             </div>
           </div>
         </div>
 
-        <div className="relative z-10 mt-8 grid gap-3 lg:hidden">
+        <div className="relative z-10 mt-8 grid gap-4 lg:hidden">
+          <div className="relative mx-auto aspect-square w-full max-w-[320px]">
+            <GlobeCanvas variant="light" className="absolute inset-0" />
+          </div>
           <p className="text-sm font-medium text-ink/80">12+ Completed Projects</p>
           <div className="rounded-2xl border border-white/60 bg-white/55 p-4 backdrop-blur-md">
             <p className="text-sm font-semibold">2+ Years of Experience</p>

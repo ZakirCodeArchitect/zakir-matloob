@@ -2,7 +2,6 @@ import { AnalogFeature } from "@/components/sections/analog-feature";
 import { CaseStudies } from "@/components/sections/case-studies";
 import { ContactPanel } from "@/components/sections/contact-panel";
 import { Experience } from "@/components/sections/experience";
-import { GlobalReach } from "@/components/sections/global-reach";
 import { Hero } from "@/components/sections/hero";
 import { Impact } from "@/components/sections/impact";
 import { ImpactCarousel } from "@/components/sections/impact-carousel";
@@ -23,7 +22,6 @@ export default function Home() {
       <WhyPartner />
       <AnalogFeature />
       <CaseStudies />
-      <GlobalReach />
       <Experience />
       <Philosophy />
       <ImpactCarousel />
