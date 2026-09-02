@@ -23,7 +23,8 @@ const MAX_GLOBE_ZOOM = 1.45;
 
 const themes = {
   light: {
-    sphere: "#ffffff",
+    sphere: "transparent",
+    hideSphere: true,
     dots: "#1a1a1a",
     dotSize: 0.009,
     dotOpacity: 1,
@@ -39,6 +40,7 @@ const themes = {
   },
   dark: {
     sphere: "#030508",
+    hideSphere: false,
     dots: "#7affb8",
     dotSize: 0.009,
     dotOpacity: 0.55,
@@ -171,7 +173,7 @@ function Earth({
 
   return (
     <>
-      <ambientLight intensity={variant === "light" ? 1.2 : 0.35} />
+      <ambientLight intensity={variant === "dark" ? 0.35 : 0} />
       {variant === "dark" ? (
         <>
           <pointLight position={[6, 4, 6]} intensity={1.4} color="#7dffb0" />
@@ -180,10 +182,12 @@ function Earth({
       ) : null}
 
       <group ref={groupRef}>
-        <mesh>
-          <sphereGeometry args={[0.992, 96, 96]} />
-          <meshBasicMaterial color={theme.sphere} />
-        </mesh>
+        {!theme.hideSphere ? (
+          <mesh>
+            <sphereGeometry args={[0.992, 96, 96]} />
+            <meshBasicMaterial color={theme.sphere} />
+          </mesh>
+        ) : null}
 
         {outlineLines && variant === "dark" ? (
           <lineSegments geometry={outlineLines}>
@@ -312,6 +316,9 @@ export function GlobeSceneCanvas({
       camera={{ position: [0, 0.15, 3.1], fov: 38 }}
       dpr={[1, 2]}
       gl={{ antialias: true, alpha: true }}
+      onCreated={({ gl }) => {
+        gl.setClearColor(0x000000, 0);
+      }}
       style={{ background: "transparent", cursor: "inherit" }}
       className="touch-none"
     >
