@@ -4,6 +4,7 @@ import { Play } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Reveal } from "@/components/reveal";
+import { site } from "@/lib/data";
 
 export function Philosophy() {
   const [open, setOpen] = useState(false);
@@ -26,10 +27,12 @@ export function Philosophy() {
         >
           <div className="relative aspect-[16/8] min-h-[240px]">
             <Image
-              src="/images/philosophy-film.png"
-              alt="Engineering philosophy film still"
+              src="/images/philosophy-film-zakir.jpg"
+              alt={`${site.name} — engineering philosophy film still`}
               fill
-              className="object-cover transition duration-700 group-hover:scale-[1.03]"
+              className="object-cover object-[center_18%] transition duration-700 group-hover:scale-[1.03]"
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              priority
             />
             <div className="absolute inset-0 bg-black/25" />
             <span className="absolute inset-0 m-auto flex size-20 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white backdrop-blur-md">
