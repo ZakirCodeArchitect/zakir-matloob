@@ -27,24 +27,39 @@ export function Hero() {
       <HeroTopBar />
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col px-5 pb-28 pt-24 md:px-8 md:pb-32 md:pt-28">
-        <div className="relative mx-auto flex w-full max-w-5xl flex-1 items-center justify-center">
-          <h1 className="pointer-events-none relative z-10 w-full max-w-[18ch] text-center select-none md:max-w-none">
-            <span className="sr-only">
-              {site.name} — I engineer systems from the ground up
-            </span>
-            <span
-              aria-hidden
-              className="hero-manifesto mx-auto block font-display text-[11.5vw] font-extrabold uppercase leading-[0.9] tracking-[-0.04em] text-white md:text-[5.6vw] lg:text-[5.2rem]"
-            >
-              <span className="block">I engineer</span>
-              <span className="block text-orange">systems</span>
-              <span className="block">from the ground up</span>
-            </span>
-          </h1>
+        <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center">
+          <div className="relative z-10 max-w-[920px] pt-6 md:pt-0">
+            <p className="mb-4 font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-ink/45 md:mb-5">
+              {site.shortRole}
+            </p>
+            <h1 className="hero-manifesto select-none text-left">
+              <span className="sr-only">
+                {site.name} — I engineer systems from the ground up
+              </span>
+              <span
+                aria-hidden
+                className="block font-condensed text-[13.5vw] uppercase leading-[0.88] tracking-[0.04em] text-ink md:text-[5.5rem]"
+              >
+                I engineer
+              </span>
+              <span
+                aria-hidden
+                className="hero-manifesto-accent -mt-1 block font-condensed text-[17vw] uppercase leading-[0.82] tracking-[0.05em] text-orange md:-mt-3 md:text-[7rem]"
+              >
+                systems
+              </span>
+              <span
+                aria-hidden
+                className="mt-5 block max-w-[22rem] font-display text-[4.5vw] font-medium leading-snug tracking-[-0.03em] text-ink/45 md:mt-8 md:max-w-lg md:text-[1.5rem] md:pl-0.5"
+              >
+                From the ground up.
+              </span>
+            </h1>
+          </div>
 
-          <div className="absolute left-0 top-[46%] z-30 hidden max-w-[190px] lg:block">
+          <div className="absolute bottom-[26%] left-0 z-30 hidden max-w-[190px] lg:block">
             <div className="relative pr-28">
-              <p className="text-right text-sm font-medium leading-snug text-ink/80">
+              <p className="text-right text-sm font-medium leading-snug text-ink/75">
                 12+ Completed
                 <br />
                 Projects
@@ -55,14 +70,14 @@ export function Hero() {
                 fill="none"
                 aria-hidden
               >
-                <path d="M0 16 H98" stroke="rgba(255,255,255,0.95)" strokeWidth="1.2" />
-                <circle cx="108" cy="16" r="6.5" fill="white" />
+                <path d="M0 16 H98" stroke="rgba(10,10,10,0.22)" strokeWidth="1.2" />
+                <circle cx="108" cy="16" r="6.5" fill="white" stroke="rgba(10,10,10,0.08)" />
                 <circle cx="108" cy="16" r="2.6" fill="#FF4D1C" />
               </svg>
             </div>
           </div>
 
-          <div className="absolute right-0 top-[40%] z-30 hidden w-[250px] lg:block">
+          <div className="absolute bottom-[30%] right-0 z-30 hidden w-[250px] lg:block">
             <div className="relative pl-24">
               <svg
                 className="absolute top-8 left-0 h-8 w-24"
@@ -70,13 +85,13 @@ export function Hero() {
                 fill="none"
                 aria-hidden
               >
-                <circle cx="8" cy="16" r="6.5" fill="white" />
+                <circle cx="8" cy="16" r="6.5" fill="white" stroke="rgba(10,10,10,0.08)" />
                 <circle cx="8" cy="16" r="2.6" fill="#FF4D1C" />
-                <path d="M16 16 H100" stroke="rgba(255,255,255,0.95)" strokeWidth="1.2" />
+                <path d="M16 16 H100" stroke="rgba(10,10,10,0.22)" strokeWidth="1.2" />
               </svg>
-              <div className="rounded-2xl border border-white/60 bg-white/50 p-4 shadow-[0_16px_40px_rgba(40,30,20,0.1)] backdrop-blur-md">
+              <div className="rounded-2xl border border-black/8 bg-white/80 p-4 shadow-[0_16px_40px_rgba(40,30,20,0.08)] backdrop-blur-md">
                 <p className="text-sm font-semibold text-ink">2+ Years of Experience</p>
-                <p className="mt-2 text-[12px] leading-relaxed text-ink/70">
+                <p className="mt-2 text-[12px] leading-relaxed text-ink/65">
                   Full-stack, applied AI, and SAP-adjacent systems — clean delivery with
                   enterprise constraints attached.
                 </p>
@@ -85,7 +100,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-3 lg:hidden">
+        <div className="relative z-10 mt-8 grid gap-3 lg:hidden">
           <p className="text-sm font-medium text-ink/80">12+ Completed Projects</p>
           <div className="rounded-2xl border border-white/60 bg-white/55 p-4 backdrop-blur-md">
             <p className="text-sm font-semibold">2+ Years of Experience</p>
