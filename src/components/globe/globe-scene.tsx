@@ -18,9 +18,6 @@ import {
 
 export type GlobeVariant = "light" | "dark";
 
-const MIN_GLOBE_ZOOM = 0.75;
-const MAX_GLOBE_ZOOM = 1.45;
-
 const themes = {
   light: {
     sphere: "transparent",
@@ -61,13 +58,11 @@ const themes = {
 
 function Earth({
   variant,
-  zoom,
   onReady,
   onDragStart,
   onDragEnd,
 }: {
   variant: GlobeVariant;
-  zoom: number;
   onReady?: () => void;
   onDragStart?: () => void;
   onDragEnd?: () => void;
@@ -75,7 +70,6 @@ function Earth({
   const theme = themes[variant];
   const groupRef = useRef<THREE.Group>(null);
   const dragging = useRef(false);
-  const controlsRef = useRef<React.ComponentRef<typeof OrbitControls>>(null);
   const reduceMotion = useReducedMotion();
   const [collection, setCollection] = useState<FeatureCollection | null>(null);
   const [activePin, setActivePin] = useState<string | null>(null);
@@ -95,19 +89,6 @@ function Earth({
     texture.needsUpdate = true;
     return texture;
   }, [variant]);
-
-  useEffect(() => {
-    const controls = controlsRef.current;
-    if (!controls) return;
-
-    const camera = controls.object as THREE.PerspectiveCamera;
-    const offset = camera.position.clone().sub(controls.target);
-    const baseDistance = 3.1;
-    const nextDistance = baseDistance / zoom;
-    offset.normalize().multiplyScalar(nextDistance);
-    camera.position.copy(controls.target).add(offset);
-    controls.update();
-  }, [zoom]);
 
   useEffect(() => {
     let cancelled = false;
@@ -280,13 +261,9 @@ function Earth({
       ) : null}
 
       <OrbitControls
-        ref={controlsRef}
         enablePan={false}
-        enableZoom
-        minDistance={2.2 / MAX_GLOBE_ZOOM}
-        maxDistance={4.8 / MIN_GLOBE_ZOOM}
+        enableZoom={false}
         rotateSpeed={0.45}
-        zoomSpeed={0.55}
         onStart={() => {
           dragging.current = true;
           onDragStart?.();
@@ -302,12 +279,10 @@ function Earth({
 
 export function GlobeSceneCanvas({
   variant = "light",
-  zoom = 1,
   onDragStart,
   onDragEnd,
 }: {
   variant?: GlobeVariant;
-  zoom?: number;
   onDragStart?: () => void;
   onDragEnd?: () => void;
 }) {
@@ -327,7 +302,6 @@ export function GlobeSceneCanvas({
       ) : null}
       <Earth
         variant={variant}
-        zoom={zoom}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
       />
