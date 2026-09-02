@@ -160,6 +160,16 @@ export const experience = [
     ],
   },
   {
+    company: "Freelance",
+    role: "Full Stack Developer",
+    dates: "2024 — Present",
+    location: "Remote",
+    bullets: [
+      "Build and ship client products end-to-end — Next.js, React, Node.js, and PostgreSQL — from architecture through deployment.",
+      "Deliver production work across booking platforms, AI tooling, and documentation systems for startups and operators who need reliable delivery without a full in-house team.",
+    ],
+  },
+  {
     company: "Metavision IT",
     role: "Software Engineer",
     dates: "Dec 2025 — Present",
