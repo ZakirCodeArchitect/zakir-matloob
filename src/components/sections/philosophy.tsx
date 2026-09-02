@@ -27,10 +27,10 @@ export function Philosophy() {
         >
           <div className="relative aspect-[16/8] min-h-[240px]">
             <Image
-              src="/images/philosophy-film-zakir.jpg"
+              src="/images/philosophy-film-overshoulder.jpg"
               alt={`${site.name} — engineering philosophy film still`}
               fill
-              className="object-cover object-[center_18%] transition duration-700 group-hover:scale-[1.03]"
+              className="object-cover object-center transition duration-700 group-hover:scale-[1.03]"
               sizes="(max-width: 1200px) 100vw, 1200px"
               priority
             />
