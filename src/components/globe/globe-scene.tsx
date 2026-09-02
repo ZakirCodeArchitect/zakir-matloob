@@ -18,10 +18,13 @@ import {
 
 export type GlobeVariant = "light" | "dark";
 
+const MIN_GLOBE_ZOOM = 0.75;
+const MAX_GLOBE_ZOOM = 1.45;
+
 const themes = {
   light: {
-    sphere: "#f7f7f5",
-    dots: "#141414",
+    sphere: "#ffffff",
+    dots: "#1a1a1a",
     dotSize: 0.009,
     dotOpacity: 1,
     graticuleOpacity: 0,
@@ -56,14 +59,21 @@ const themes = {
 
 function Earth({
   variant,
+  zoom,
   onReady,
+  onDragStart,
+  onDragEnd,
 }: {
   variant: GlobeVariant;
+  zoom: number;
   onReady?: () => void;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
 }) {
   const theme = themes[variant];
   const groupRef = useRef<THREE.Group>(null);
   const dragging = useRef(false);
+  const controlsRef = useRef<React.ComponentRef<typeof OrbitControls>>(null);
   const reduceMotion = useReducedMotion();
   const [collection, setCollection] = useState<FeatureCollection | null>(null);
   const [activePin, setActivePin] = useState<string | null>(null);
@@ -83,6 +93,19 @@ function Earth({
     texture.needsUpdate = true;
     return texture;
   }, [variant]);
+
+  useEffect(() => {
+    const controls = controlsRef.current;
+    if (!controls) return;
+
+    const camera = controls.object as THREE.PerspectiveCamera;
+    const offset = camera.position.clone().sub(controls.target);
+    const baseDistance = 3.1;
+    const nextDistance = baseDistance / zoom;
+    offset.normalize().multiplyScalar(nextDistance);
+    camera.position.copy(controls.target).add(offset);
+    controls.update();
+  }, [zoom]);
 
   useEffect(() => {
     let cancelled = false;
@@ -148,27 +171,18 @@ function Earth({
 
   return (
     <>
-      <ambientLight intensity={variant === "light" ? 0.95 : 0.35} />
+      <ambientLight intensity={variant === "light" ? 1.2 : 0.35} />
       {variant === "dark" ? (
         <>
           <pointLight position={[6, 4, 6]} intensity={1.4} color="#7dffb0" />
           <pointLight position={[-4, -2, -5]} intensity={0.35} color="#ff4d1c" />
         </>
-      ) : (
-        <>
-          <directionalLight position={[3, 2, 5]} intensity={0.55} color="#ffffff" />
-          <directionalLight position={[-3, -2, 2]} intensity={0.12} color="#c8d4e8" />
-        </>
-      )}
+      ) : null}
 
       <group ref={groupRef}>
         <mesh>
           <sphereGeometry args={[0.992, 96, 96]} />
-          {variant === "light" ? (
-            <meshLambertMaterial color={theme.sphere} />
-          ) : (
-            <meshBasicMaterial color={theme.sphere} />
-          )}
+          <meshBasicMaterial color={theme.sphere} />
         </mesh>
 
         {outlineLines && variant === "dark" ? (
@@ -262,34 +276,54 @@ function Earth({
       ) : null}
 
       <OrbitControls
+        ref={controlsRef}
         enablePan={false}
-        minDistance={2.2}
-        maxDistance={4.8}
+        enableZoom
+        minDistance={2.2 / MAX_GLOBE_ZOOM}
+        maxDistance={4.8 / MIN_GLOBE_ZOOM}
         rotateSpeed={0.45}
         zoomSpeed={0.55}
         onStart={() => {
           dragging.current = true;
+          onDragStart?.();
         }}
         onEnd={() => {
           dragging.current = false;
+          onDragEnd?.();
         }}
       />
     </>
   );
 }
 
-export function GlobeSceneCanvas({ variant = "light" }: { variant?: GlobeVariant }) {
+export function GlobeSceneCanvas({
+  variant = "light",
+  zoom = 1,
+  onDragStart,
+  onDragEnd,
+}: {
+  variant?: GlobeVariant;
+  zoom?: number;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+}) {
   return (
     <Canvas
       camera={{ position: [0, 0.15, 3.1], fov: 38 }}
       dpr={[1, 2]}
       gl={{ antialias: true, alpha: true }}
-      style={{ background: "transparent" }}
+      style={{ background: "transparent", cursor: "inherit" }}
+      className="touch-none"
     >
       {variant === "dark" ? (
         <Stars radius={80} depth={40} count={1200} factor={3} fade speed={0.4} />
       ) : null}
-      <Earth variant={variant} />
+      <Earth
+        variant={variant}
+        zoom={zoom}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+      />
     </Canvas>
   );
 }
