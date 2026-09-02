@@ -77,7 +77,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="absolute bottom-[30%] right-0 z-30 hidden w-[250px] lg:block">
+          <div className="absolute bottom-[22%] right-0 z-30 hidden w-[250px] lg:block">
             <div className="relative pl-24">
               <svg
                 className="absolute top-8 left-0 h-8 w-24"
