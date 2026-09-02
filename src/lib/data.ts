@@ -63,6 +63,37 @@ export const skills = [
   { name: "Git", icon: "git" },
 ] as const;
 
+export const productLocations = [
+  {
+    id: "pakistan",
+    country: "Pakistan",
+    lat: 33.6844,
+    lng: 73.0479,
+    label: "HA EngagePro · Legal RAG · FFC",
+  },
+  {
+    id: "malta",
+    country: "Malta",
+    lat: 35.8997,
+    lng: 14.5147,
+    label: "Explore Malta Rentals",
+  },
+  {
+    id: "uae",
+    country: "UAE",
+    lat: 25.2048,
+    lng: 55.2708,
+    label: "Global ed-tech programs",
+  },
+  {
+    id: "usa",
+    country: "United States",
+    lat: 39.8283,
+    lng: -98.5795,
+    label: "IdeaFlow AI · DevelopersDoc",
+  },
+] as const;
+
 export const stats = [
   {
     value: "2+",
