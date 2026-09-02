@@ -9,7 +9,9 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     if (reduce) return;
 
     const lenis = new Lenis({
-      duration: 1.1,
+      // Slightly snappy: 1.1 felt laggy on long pages.
+      duration: 0.7,
+      wheelMultiplier: 1.15,
       smoothWheel: true,
     });
 
