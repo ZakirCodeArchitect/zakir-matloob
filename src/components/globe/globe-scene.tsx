@@ -32,7 +32,7 @@ const themes = {
     tooltipBg: "bg-white/95 border-black/8 text-ink",
     tooltipMuted: "text-ink/45",
     autoRotateSpeed: 0.08,
-    gridStep: 0.9,
+    gridStep: 1.2,
     showArcs: false,
   },
   dark: {

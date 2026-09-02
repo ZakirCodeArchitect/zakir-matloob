@@ -73,7 +73,15 @@ export function buildLandDotGrid(
   const latMax = bounds.latMax ?? 84;
 
   for (let lat = latMin; lat <= latMax; lat += gridStep) {
-    for (let lng = -180; lng < 180; lng += gridStep) {
+    // Longitude lines converge toward the poles. Increase their angular
+    // spacing by latitude to keep a consistent visual gap between dots.
+    const latitudeScale = Math.max(
+      Math.cos(THREE.MathUtils.degToRad(lat)),
+      0.15,
+    );
+    const longitudeStep = gridStep / latitudeScale;
+
+    for (let lng = -180; lng < 180; lng += longitudeStep) {
       if (isOnLand(lng, lat, polygons)) {
         const p = latLngToVector3(lat, lng, radius);
         dotPositions.push(p.x, p.y, p.z);
