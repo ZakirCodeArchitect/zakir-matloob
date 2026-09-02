@@ -60,6 +60,60 @@ function isOnLand(lng: number, lat: number, polygons: Ring[][]) {
   return false;
 }
 
+export function buildCountryDotGrids(
+  collection: FeatureCollection,
+  radius: number,
+  gridStep: number,
+  bounds: { latMin?: number; latMax?: number } = {},
+) {
+  const countries = collection.features.map((feature, index) => {
+    const geometry = feature.geometry;
+    const polygons: Ring[][] =
+      geometry?.type === "Polygon"
+        ? [geometry.coordinates as Ring[]]
+        : geometry?.type === "MultiPolygon"
+          ? (geometry.coordinates as Ring[][])
+          : [];
+
+    return {
+      id: String(feature.id ?? index),
+      polygons,
+      positions: [] as number[],
+    };
+  });
+  const latMin = bounds.latMin ?? -58;
+  const latMax = bounds.latMax ?? 84;
+
+  for (let lat = latMin; lat <= latMax; lat += gridStep) {
+    const latitudeScale = Math.max(
+      Math.cos(THREE.MathUtils.degToRad(lat)),
+      0.15,
+    );
+    const longitudeStep = gridStep / latitudeScale;
+
+    for (let lng = -180; lng < 180; lng += longitudeStep) {
+      const country = countries.find(({ polygons }) =>
+        polygons.some((polygon) => pointInPolygon(lng, lat, polygon)),
+      );
+      if (!country) continue;
+
+      const point = latLngToVector3(lat, lng, radius);
+      country.positions.push(point.x, point.y, point.z);
+    }
+  }
+
+  return countries
+    .filter(({ positions }) => positions.length > 0)
+    .map(({ id, positions }) => {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(positions, 3),
+      );
+      return { id, geometry };
+    });
+}
+
 /** Uniform lat/lng grid of dots clipped to land — matches stippled reference style. */
 export function buildLandDotGrid(
   collection: FeatureCollection,

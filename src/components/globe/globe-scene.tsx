@@ -12,7 +12,7 @@ import { productLocations } from "@/lib/data";
 import {
   buildArcGeometry,
   buildCountryGeometries,
-  buildLandDotGrid,
+  buildCountryDotGrids,
   latLngToVector3,
 } from "@/lib/globe-utils";
 
@@ -74,6 +74,7 @@ function Earth({
   const reduceMotion = useReducedMotion();
   const [collection, setCollection] = useState<FeatureCollection | null>(null);
   const [activePin, setActivePin] = useState<string | null>(null);
+  const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
 
   const dotTexture = useMemo(() => {
     if (variant !== "light" || typeof document === "undefined") return null;
@@ -110,16 +111,25 @@ function Earth({
     };
   }, [onReady]);
 
-  const landDots = useMemo(() => {
-    if (!collection) return null;
+  const landDotGroups = useMemo(() => {
+    if (!collection) return [];
     if (variant === "light") {
-      return buildLandDotGrid(collection, 1.003, themes.light.gridStep);
+      return buildCountryDotGrids(
+        collection,
+        1.003,
+        themes.light.gridStep,
+      );
     }
-    return buildCountryGeometries(collection, 1.002, {
-      borderStep: themes.dark.borderStep,
-      fillGridStep: themes.dark.fillGridStep,
-      includeOutlines: themes.dark.outlineOpacity > 0,
-    }).dots;
+    return [
+      {
+        id: "dark",
+        geometry: buildCountryGeometries(collection, 1.002, {
+          borderStep: themes.dark.borderStep,
+          fillGridStep: themes.dark.fillGridStep,
+          includeOutlines: themes.dark.outlineOpacity > 0,
+        }).dots,
+      },
+    ];
   }, [collection, variant]);
 
   const outlineLines = useMemo(() => {
@@ -186,10 +196,26 @@ function Earth({
           </lineSegments>
         ) : null}
 
-        {landDots ? (
-          <points geometry={landDots}>
+        {landDotGroups.map(({ id, geometry }) => (
+          <points
+            key={id}
+            geometry={geometry}
+            onPointerOver={(event) => {
+              if (variant !== "light") return;
+              event.stopPropagation();
+              setHoveredCountry(id);
+            }}
+            onPointerOut={() => {
+              if (variant !== "light") return;
+              setHoveredCountry((current) => (current === id ? null : current));
+            }}
+          >
             <pointsMaterial
-              color={theme.dots}
+              color={
+                variant === "light" && hoveredCountry === id
+                  ? theme.pin
+                  : theme.dots
+              }
               size={theme.dotSize}
               map={dotTexture ?? undefined}
               alphaTest={dotTexture ? 0.5 : 0}
@@ -199,7 +225,7 @@ function Earth({
               depthWrite
             />
           </points>
-        ) : null}
+        ))}
 
         {theme.showArcs
           ? arcs.map((arc, i) => (
