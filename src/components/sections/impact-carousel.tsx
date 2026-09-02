@@ -45,37 +45,47 @@ export function ImpactCarousel() {
           </div>
         </div>
 
-        <div className="mt-14 flex items-end gap-4 overflow-x-auto pb-4 md:gap-6">
-          {videoTestimonials.map((person, i) => {
-            const focused = i === index;
-            return (
-              <button
-                key={person.name}
-                type="button"
-                onClick={() => setIndex(i)}
-                className={cn(
-                  "relative shrink-0 overflow-hidden rounded-[28px] transition-all duration-500",
-                  focused ? "h-[460px] w-[280px] md:h-[520px] md:w-[320px]" : "h-[380px] w-[220px] grayscale",
-                )}
-              >
-                <Image
-                  src={person.image}
-                  alt={person.name}
-                  fill
-                  sizes="(max-width: 768px) 280px, 320px"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                <span className="absolute inset-0 m-auto flex size-14 items-center justify-center rounded-full bg-white/15 backdrop-blur">
-                  <Play className="ml-0.5 size-5 fill-white text-white" />
-                </span>
-                <div className="absolute bottom-5 left-5 text-left">
-                  <p className="font-display text-xl font-bold">{person.name}</p>
-                  <p className="text-sm text-white/70">{person.title}</p>
-                </div>
-              </button>
-            );
-          })}
+        {/*
+          Fixed track height = active card height.
+          Real width/height (not scale) so cards never overlap.
+          items-end keeps bottoms locked so the row doesn't bounce.
+        */}
+        <div className="mt-14 h-[460px] overflow-x-auto overflow-y-hidden md:h-[520px]">
+          <div className="flex h-full items-end gap-5 md:gap-6">
+            {videoTestimonials.map((person, i) => {
+              const focused = i === index;
+              return (
+                <button
+                  key={person.name}
+                  type="button"
+                  onClick={() => setIndex(i)}
+                  className={cn(
+                    "relative shrink-0 overflow-hidden rounded-[28px]",
+                    "transition-[width,height,filter] duration-500 ease-out",
+                    focused
+                      ? "h-full w-[280px] grayscale-0 md:w-[320px]"
+                      : "h-[78%] w-[200px] grayscale md:w-[220px]",
+                  )}
+                >
+                  <Image
+                    src={person.image}
+                    alt={person.name}
+                    fill
+                    sizes="320px"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                  <span className="absolute inset-0 m-auto flex size-14 items-center justify-center rounded-full bg-white/15 backdrop-blur">
+                    <Play className="ml-0.5 size-5 fill-white text-white" />
+                  </span>
+                  <div className="absolute bottom-5 left-5 right-4 text-left">
+                    <p className="font-display text-xl font-bold">{person.name}</p>
+                    <p className="text-sm text-white/70">{person.title}</p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
         <Reveal>
           <p className="mt-10 max-w-2xl font-display text-2xl font-semibold leading-snug text-white/85">
