@@ -28,9 +28,18 @@ export function Hero() {
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col px-5 pb-28 pt-24 md:px-8 md:pb-32 md:pt-28">
         <div className="relative mx-auto flex w-full max-w-5xl flex-1 items-center justify-center">
-          <h1 className="pointer-events-none w-[132%] text-center font-condensed text-[17vw] leading-none tracking-[0.04em] text-white select-none [text-rendering:geometricPrecision] md:text-[11.5vw]">
-            <span className="sr-only">{site.name} — software engineer</span>
-            <span aria-hidden>DEVELOPER</span>
+          <h1 className="pointer-events-none relative z-10 w-full max-w-[18ch] text-center select-none md:max-w-none">
+            <span className="sr-only">
+              {site.name} — I engineer systems from the ground up
+            </span>
+            <span
+              aria-hidden
+              className="hero-manifesto mx-auto block font-display text-[11.5vw] font-extrabold uppercase leading-[0.9] tracking-[-0.04em] text-white md:text-[5.6vw] lg:text-[5.2rem]"
+            >
+              <span className="block">I engineer</span>
+              <span className="block text-orange">systems</span>
+              <span className="block">from the ground up</span>
+            </span>
           </h1>
 
           <div className="absolute left-0 top-[46%] z-30 hidden max-w-[190px] lg:block">
