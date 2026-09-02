@@ -8,7 +8,7 @@ const entries = [
     date: "August 2026",
     notes: [
       "First public cut of the 2026 site: orange hero, case studies, journal, and contact.",
-      "Motion, grain, custom cursor, and Lenis smooth scroll.",
+      "Motion, grain, and Lenis smooth scroll.",
     ],
   },
 ];
