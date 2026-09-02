@@ -11,12 +11,84 @@ export function latLngToVector3(lat: number, lng: number, radius: number) {
   );
 }
 
+type Ring = [number, number][];
+
+function pointInRing(lng: number, lat: number, ring: Ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [xi, yi] = ring[i];
+    const [xj, yj] = ring[j];
+    const intersect =
+      yi > lat !== yj > lat &&
+      lng < ((xj - xi) * (lat - yi)) / (yj - yi + Number.EPSILON) + xi;
+    if (intersect) inside = !inside;
+  }
+  return inside;
+}
+
+function pointInPolygon(lng: number, lat: number, polygon: Ring[]) {
+  if (!pointInRing(lng, lat, polygon[0])) return false;
+  for (let h = 1; h < polygon.length; h += 1) {
+    if (pointInRing(lng, lat, polygon[h])) return false;
+  }
+  return true;
+}
+
+function ringBounds(ring: Ring) {
+  let minLat = 90;
+  let maxLat = -90;
+  let minLng = 180;
+  let maxLng = -180;
+  for (const [lng, lat] of ring) {
+    minLat = Math.min(minLat, lat);
+    maxLat = Math.max(maxLat, lat);
+    minLng = Math.min(minLng, lng);
+    maxLng = Math.max(maxLng, lng);
+  }
+  return { minLat, maxLat, minLng, maxLng };
+}
+
+function addDot(
+  dotPositions: number[],
+  lat: number,
+  lng: number,
+  radius: number,
+) {
+  const p = latLngToVector3(lat, lng, radius);
+  dotPositions.push(p.x, p.y, p.z);
+}
+
+function fillPolygonDots(
+  dotPositions: number[],
+  polygon: Ring[],
+  radius: number,
+  gridStep: number,
+) {
+  const { minLat, maxLat, minLng, maxLng } = ringBounds(polygon[0]);
+  for (let lat = minLat; lat <= maxLat; lat += gridStep) {
+    for (let lng = minLng; lng <= maxLng; lng += gridStep) {
+      if (pointInPolygon(lng, lat, polygon)) {
+        addDot(dotPositions, lat, lng, radius);
+      }
+    }
+  }
+}
+
 export function buildCountryGeometries(
   collection: FeatureCollection,
   radius: number,
-  dotStep = 3,
-  includeOutlines = true,
+  options: {
+    borderStep?: number;
+    fillGridStep?: number;
+    includeOutlines?: boolean;
+  } = {},
 ) {
+  const {
+    borderStep = 3,
+    fillGridStep,
+    includeOutlines = true,
+  } = options;
+
   const linePositions: number[] = [];
   const dotPositions: number[] = [];
 
@@ -24,11 +96,11 @@ export function buildCountryGeometries(
     const geometry = feature.geometry;
     if (!geometry) continue;
 
-    const polygons =
+    const polygons: Ring[][] =
       geometry.type === "Polygon"
-        ? [geometry.coordinates]
+        ? [geometry.coordinates as Ring[]]
         : geometry.type === "MultiPolygon"
-          ? geometry.coordinates
+          ? (geometry.coordinates as Ring[][])
           : [];
 
     for (const polygon of polygons) {
@@ -43,11 +115,14 @@ export function buildCountryGeometries(
           }
         }
 
-        for (let i = 0; i < ring.length; i += dotStep) {
+        for (let i = 0; i < ring.length; i += borderStep) {
           const [lng, lat] = ring[i];
-          const p = latLngToVector3(lat, lng, radius * 0.998);
-          dotPositions.push(p.x, p.y, p.z);
+          addDot(dotPositions, lat, lng, radius * 0.998);
         }
+      }
+
+      if (fillGridStep) {
+        fillPolygonDots(dotPositions, polygon, radius * 0.996, fillGridStep);
       }
     }
   }
@@ -125,4 +200,3 @@ export function buildArcGeometry(
   );
   return geometry;
 }
-

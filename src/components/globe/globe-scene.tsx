@@ -21,19 +21,21 @@ export type GlobeVariant = "light" | "dark";
 const themes = {
   light: {
     sphere: "#f5f2ee",
-    dots: "#8f8a84",
-    dotSize: 0.011,
-    dotOpacity: 0.82,
+    dots: "#5c5650",
+    dotSize: 0.014,
+    dotOpacity: 0.95,
     graticule: "#c5c0b8",
-    graticuleOpacity: 0.42,
-    outline: "#a8a39c",
-    outlineOpacity: 0,
+    graticuleOpacity: 0.18,
+    outline: "#6f6a64",
+    outlineOpacity: 0.55,
     pin: "#ff4d1c",
     arc: "#b8b3ac",
-    arcOpacity: 0.55,
+    arcOpacity: 0.5,
     tooltipBg: "bg-white/95 border-black/8 text-ink",
     tooltipMuted: "text-ink/45",
     autoRotateSpeed: 0.08,
+    fillGridStep: 1.4,
+    borderStep: 1,
   },
   dark: {
     sphere: "#030508",
@@ -50,6 +52,8 @@ const themes = {
     tooltipBg: "bg-black/90 border-white/10 text-white",
     tooltipMuted: "text-[#7affb8]",
     autoRotateSpeed: 0.12,
+    fillGridStep: undefined as number | undefined,
+    borderStep: 4,
   },
 } as const;
 
@@ -88,13 +92,17 @@ function Earth({
 
   const { lines, dots } = useMemo(() => {
     if (!collection) return { lines: null, dots: null };
-    return buildCountryGeometries(
-      collection,
-      1.002,
-      variant === "light" ? 2 : 4,
-      theme.outlineOpacity > 0,
-    );
-  }, [collection, theme.outlineOpacity, variant]);
+    return buildCountryGeometries(collection, 1.002, {
+      borderStep: theme.borderStep,
+      fillGridStep: theme.fillGridStep,
+      includeOutlines: theme.outlineOpacity > 0,
+    });
+  }, [
+    collection,
+    theme.borderStep,
+    theme.fillGridStep,
+    theme.outlineOpacity,
+  ]);
 
   const graticule = useMemo(
     () => (variant === "light" ? buildGraticuleGeometry(1.004, 30) : null),
