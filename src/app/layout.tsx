@@ -29,14 +29,13 @@ const bebas = Bebas_Neue({
 
 export const metadata: Metadata = {
   title: {
-    default: `${site.name} — ${site.shortRole}`,
+    default: site.name,
     template: `%s — ${site.name}`,
   },
   description: site.description,
   authors: [{ name: site.name }],
-  icons: { icon: "/favicon.svg" },
   openGraph: {
-    title: `${site.name} — ${site.shortRole}`,
+    title: site.name,
     description: site.description,
     type: "website",
     locale: "en_US",
