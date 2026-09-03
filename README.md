@@ -33,10 +33,10 @@ npm start
 - `/work` and `/work/[slug]` — case studies
 - `/journal` and `/journal/[slug]` — writing
 - `/about` — path, services, stack
-- `/contact` — form (local API + mailto fallback)
+- `/contact` — form (Resend → Gmail, mailto fallback)
 - `/style-guide`, `/privacy`, `/changelog`, `/license`
 
-Contact submissions hit `POST /api/contact`. There is no third-party mail provider in this repo, so the form validates and acknowledges locally, then falls back to your mail client if needed.
+Contact submissions hit `POST /api/contact` and are emailed to `zakirmatloob149@gmail.com` via [Resend](https://resend.com). Copy `.env.example` to `.env.local`, add your `RESEND_API_KEY`, and restart the dev server. Without a key, the form falls back to the visitor’s mail client.
 
 ## Content
 

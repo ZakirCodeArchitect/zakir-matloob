@@ -12,10 +12,7 @@ export default function PrivacyPage() {
           This site is a personal portfolio. If you use the contact form, the name, email, and message you submit are used only to reply to you. Nothing is sold, and there is no advertising tracker.
         </p>
         <p>
-          Messages are accepted by a local API route. If that route cannot deliver mail, the form falls back to your email client addressed to {site.email}. Do not send secrets, credentials, or personal data you would not put in an ordinary email.
-        </p>
-        <p>
-          The site may store a record of submissions in the running server process for debugging. That record is not a database and is lost on restart.
+          Contact form messages are emailed to {site.email}. If delivery fails, the form falls back to your email client addressed to the same inbox. Do not send secrets, credentials, or personal data you would not put in an ordinary email.
         </p>
       </article>
     </main>

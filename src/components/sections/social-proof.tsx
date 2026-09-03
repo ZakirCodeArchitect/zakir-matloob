@@ -5,7 +5,11 @@ import Image from "next/image";
 import { Reveal } from "@/components/reveal";
 import { videoTestimonials } from "@/lib/data";
 
-const collaborators = [
+const collaborators: {
+  name: string;
+  image: string;
+  circular?: boolean;
+}[] = [
   {
     name: "Farooq Sheikh",
     image: "/images/testimonial-farooq-headshot.png",
@@ -19,7 +23,7 @@ const collaborators = [
     name: "Sania Tahir",
     image: "/images/testimonial-sania.png",
   },
-] as const;
+];
 
 export function SocialProof() {
   const quote = videoTestimonials[0];

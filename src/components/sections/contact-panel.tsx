@@ -48,7 +48,7 @@ export function ContactPanel() {
           </h2>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
             For platforms, AI systems, or SAP-adjacent work. I read every note.
-            The form stores locally if mail is unavailable — you can also write{" "}
+            Messages go to{" "}
             <a className="underline decoration-orange" href={`mailto:${site.email}`}>
               {site.email}
             </a>
@@ -65,7 +65,7 @@ export function ContactPanel() {
             <div className="p-8">
               <p className="font-display text-2xl font-bold">Message received.</p>
               <p className="mt-3 text-sm text-muted">
-                Thank you. I will reply to the address you left. If you used the mail fallback, check your client.
+                Thank you. I will reply to the address you left.
               </p>
               <button
                 type="button"
