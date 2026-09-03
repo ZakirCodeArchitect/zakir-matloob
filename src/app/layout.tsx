@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, Geist, Geist_Mono, Syne } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 import { site } from "@/lib/data";
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full bg-paper text-ink">
         <Providers>{children}</Providers>
+        <SpeedInsights />
       </body>
     </html>
   );

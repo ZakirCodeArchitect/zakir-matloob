@@ -3,7 +3,7 @@ export const site = {
   wordmark: "Zakir®",
   studio: "Code Architect",
   role: "Software Engineer · AI Engineer · SAP Consultant",
-  shortRole: "Enterprise Systems & AI Engineer",
+  shortRole: "Enterprise Solutions Engineer & AI Engineer",
   location: "Lahore · Islamabad, Pakistan",
   email: "zakirmatloob149@gmail.com",
   year: 2026,
