@@ -43,7 +43,7 @@ export function ContactPanel() {
       <div className="relative mx-auto grid max-w-[1100px] items-center gap-10 px-5 md:grid-cols-2 md:px-8">
         <div className="text-white">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-orange">Contact</p>
-          <h2 className="mt-4 font-display text-5xl font-bold md:text-6xl">
+          <h2 className="mt-4 font-display text-4xl font-bold sm:text-5xl md:text-6xl">
             Start a conversation.
           </h2>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">

@@ -19,7 +19,7 @@ export function CaseStudies() {
             <span className="flex size-11 items-center justify-center rounded-2xl bg-orange text-white">
               <BookOpen className="size-5" />
             </span>
-            <h2 className="font-condensed text-6xl md:text-8xl">Case study</h2>
+            <h2 className="font-condensed text-5xl sm:text-6xl md:text-8xl">Case study</h2>
           </div>
           <p className="max-w-sm font-mono text-sm leading-relaxed text-white/70">
             In-depth looks at how engineering decisions solved real business challenges.

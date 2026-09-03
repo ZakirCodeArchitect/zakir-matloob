@@ -12,8 +12,8 @@ export function Impact() {
           </span>
         </Reveal>
         <div className="mt-6 grid items-end gap-10 lg:grid-cols-[1.4fr_auto_220px]">
-          <Reveal delay={0.05}>
-            <h2 className="font-display text-[12vw] font-extrabold leading-[0.9] tracking-[-0.04em] md:text-7xl lg:text-8xl">
+          <Reveal delay={0.05} className="min-w-0">
+            <h2 className="max-w-full font-display text-[clamp(2.35rem,6.2vw+0.85rem,6rem)] font-extrabold leading-[0.95] tracking-[-0.04em] break-words">
               My impact{" "}
               <span className="text-black/30">through</span>{" "}
               <span className="text-black/30">engineering</span> experience
@@ -45,8 +45,8 @@ export function Impact() {
         <div className="mt-16 grid gap-4 md:grid-cols-3">
           {stats.map((stat, i) => (
             <Reveal key={stat.value} delay={i * 0.08}>
-              <article className="rounded-3xl border border-black/6 bg-white p-7 shadow-[0_20px_50px_rgba(10,10,10,0.05)]">
-                <p className="font-display text-6xl font-extrabold tracking-tight">
+              <article className="rounded-3xl border border-black/6 bg-white p-5 shadow-[0_20px_50px_rgba(10,10,10,0.05)] sm:p-7">
+                <p className="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">
                   {stat.value}
                   <span className="ml-1 text-orange">*</span>
                 </p>

@@ -6,7 +6,6 @@ import { Hero } from "@/components/sections/hero";
 import { Impact } from "@/components/sections/impact";
 import { ImpactCarousel } from "@/components/sections/impact-carousel";
 import { JournalPreview } from "@/components/sections/journal-preview";
-import { Philosophy } from "@/components/sections/philosophy";
 import { SocialProof } from "@/components/sections/social-proof";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Trusted } from "@/components/sections/trusted";
@@ -23,7 +22,6 @@ export default function Home() {
       <AnalogFeature />
       <CaseStudies />
       <Experience />
-      <Philosophy />
       <ImpactCarousel />
       <JournalPreview />
       <Testimonials />

@@ -3,10 +3,26 @@
 import { Star } from "lucide-react";
 import Image from "next/image";
 import { Reveal } from "@/components/reveal";
-import { writtenTestimonials } from "@/lib/data";
+import { videoTestimonials } from "@/lib/data";
+
+const collaborators = [
+  {
+    name: "Farooq Sheikh",
+    image: "/images/testimonial-farooq-headshot.png",
+    circular: true,
+  },
+  {
+    name: "Arsalan Azhar",
+    image: "/images/testimonial-arsalan.png",
+  },
+  {
+    name: "Sania Tahir",
+    image: "/images/testimonial-sania.png",
+  },
+] as const;
 
 export function SocialProof() {
-  const quote = writtenTestimonials[0];
+  const quote = videoTestimonials[0];
   return (
     <section className="bg-[#f6f4f1] py-16 md:py-20">
       <div className="mx-auto grid max-w-[1440px] gap-6 px-5 md:grid-cols-[1.1fr_0.9fr] md:px-8">
@@ -17,15 +33,23 @@ export function SocialProof() {
             <div className="relative">
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
-                  {["/images/testimonial-jessica.png", "/images/testimonial-anika.png", "/images/avatar-small.png"].map((src) => (
-                    <Image
-                      key={src}
-                      src={src}
-                      alt=""
-                      width={36}
-                      height={36}
-                      className="size-9 rounded-full border-2 border-white object-cover"
-                    />
+                  {collaborators.map((person) => (
+                    <span
+                      key={person.name}
+                      className="relative size-9 shrink-0 overflow-hidden rounded-full border-2 border-white bg-neutral-900"
+                    >
+                      <Image
+                        src={person.image}
+                        alt={person.name}
+                        width={36}
+                        height={36}
+                        className={
+                          person.circular
+                            ? "absolute inset-x-0 top-[22%] h-full w-full object-cover"
+                            : "size-full object-cover object-top"
+                        }
+                      />
+                    </span>
                   ))}
                 </div>
                 <div>
@@ -40,26 +64,40 @@ export function SocialProof() {
               <p className="mt-6 max-w-lg font-display text-2xl font-semibold leading-snug text-ink md:text-3xl">
                 “{quote.quote}”
               </p>
-              <p className="mt-5 text-sm font-medium">
-                {quote.name}
-                <span className="text-muted"> — {quote.role}</span>
-              </p>
+              <div className="mt-5">
+                <p className="text-sm font-medium">{quote.name}</p>
+                <p className="text-sm text-muted">{quote.title}</p>
+              </div>
             </div>
           </article>
         </Reveal>
-        <Reveal delay={0.1}>
-          <article className="flex h-full flex-col justify-between overflow-hidden rounded-[28px] bg-orange p-8 text-white md:p-10">
-            <p className="font-display text-lg font-bold">{`Zakir®`}</p>
-            <p className="mt-10 font-display text-4xl font-extrabold leading-[0.9] tracking-tight md:text-5xl">
-              I DESIGN
-              <br />
-              SYSTEMS
-              <br />
-              PEOPLE TRUST.
-            </p>
-            <p className="mt-8 max-w-xs text-[11px] uppercase tracking-[0.16em] text-white/80">
-              Web platforms · applied AI · SAP-adjacent consultancy
-            </p>
+        <Reveal delay={0.1} className="md:self-start">
+          <article className="relative h-[18rem] w-full overflow-hidden rounded-[28px] bg-[#c5c1bb] text-white sm:h-[20rem] md:h-[22rem]">
+            <div className="absolute inset-y-0 right-0 w-[62%] sm:w-[58%]">
+              <Image
+                src="/images/zakir-professional.png"
+                alt="Zakir"
+                fill
+                priority
+                sizes="(max-width: 768px) 70vw, 30vw"
+                className="object-cover object-[12%_38%] scale-x-[-1]"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#b83310] via-[#ff4d1c]/88 to-transparent to-55%" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#9a2a0d]/70 via-transparent to-transparent" />
+            <div className="relative z-10 flex h-full max-w-[15rem] flex-col justify-end p-6 md:max-w-[17rem] md:p-8">
+              <p className="font-display text-base font-bold md:text-lg">Zakir</p>
+              <p className="mt-3 font-display text-[1.75rem] font-extrabold leading-[0.9] tracking-tight sm:text-3xl md:text-[2.2rem]">
+                I DESIGN
+                <br />
+                SYSTEMS
+                <br />
+                PEOPLE TRUST.
+              </p>
+              <p className="mt-4 max-w-xs text-[10px] uppercase tracking-[0.16em] text-white/85 md:text-[11px]">
+                Web platforms · applied AI · SAP-adjacent consultancy
+              </p>
+            </div>
           </article>
         </Reveal>
       </div>

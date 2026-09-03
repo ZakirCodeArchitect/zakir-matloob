@@ -10,15 +10,15 @@ export function WhyPartner() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">
             Why partner with me
           </p>
-          <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold leading-tight md:text-6xl">
+          <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold leading-tight sm:text-4xl md:text-6xl">
             Why partner with me today and always?
           </h2>
         </Reveal>
 
         <div className="mt-14 grid gap-4 md:grid-cols-2">
           {whyPartner.map((card, i) => (
-            <Reveal key={card.title} delay={i * 0.06}>
-              <article className="group relative overflow-hidden rounded-[28px] border border-white/8 bg-[#0d0d0d] p-7 md:min-h-[280px] md:p-9">
+            <Reveal key={card.title} delay={i * 0.06} className="min-w-0">
+              <article className="group relative min-w-0 overflow-hidden rounded-[28px] border border-white/8 bg-[#0d0d0d] p-5 sm:p-7 md:min-h-[280px] md:p-9">
                 <div className="pointer-events-none absolute -right-10 -top-16 size-72 rounded-full bg-[radial-gradient(circle,rgba(255,77,28,0.28),transparent_62%)]" />
                 <Visual kind={card.kind} />
                 <h3 className="relative mt-8 font-display text-2xl font-bold">{card.title}</h3>
@@ -44,7 +44,7 @@ function Visual({ kind }: { kind: "stack" | "wave" | "cloud" | "globe" }) {
   }
   if (kind === "globe") {
     return (
-      <div className="relative -mb-8 -mr-8 h-40 overflow-hidden rounded-2xl md:absolute md:bottom-0 md:right-0 md:h-56 md:w-[55%]">
+      <div className="relative -mb-4 h-36 overflow-hidden rounded-2xl sm:-mb-8 sm:-mr-8 sm:h-40 md:absolute md:bottom-0 md:right-0 md:h-56 md:w-[55%]">
         <Image src="/images/globe-dots.png" alt="" fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover" />
       </div>
     );
@@ -59,11 +59,11 @@ function Visual({ kind }: { kind: "stack" | "wave" | "cloud" | "globe" }) {
     );
   }
   return (
-    <div className="flex items-center gap-4">
-      <div className="flex size-14 items-center justify-center rounded-2xl bg-orange/15 font-mono text-lg text-orange shadow-[0_0_40px_rgba(255,77,28,0.4)]">
+    <div className="flex min-w-0 flex-wrap items-center gap-3">
+      <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-orange/15 font-mono text-lg text-orange shadow-[0_0_40px_rgba(255,77,28,0.4)] md:size-14">
         {"</>"}
       </div>
-      <div className="flex gap-2 text-[11px] font-medium uppercase tracking-wider text-white/50">
+      <div className="flex min-w-0 flex-wrap gap-1.5 text-[10px] font-medium uppercase tracking-wider text-white/50 sm:gap-2 sm:text-[11px]">
         {["Next.js", "TypeScript", "Node", "Tailwind", "Motion"].map((t) => (
           <span key={t} className="rounded-full border border-white/10 px-2 py-1">
             {t}

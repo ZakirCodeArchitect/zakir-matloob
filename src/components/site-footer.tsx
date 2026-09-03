@@ -25,7 +25,7 @@ export function SiteFooter() {
             className="pointer-events-none absolute -bottom-16 -right-10 hidden w-72 rotate-12 scale-x-[-1] object-contain opacity-80 md:block"
           />
           <div className="relative z-10 mx-auto max-w-3xl text-center">
-            <h2 className="font-condensed text-[12vw] leading-[0.9] text-ink md:text-7xl lg:text-8xl">
+            <h2 className="font-condensed text-[clamp(2.25rem,8vw,6rem)] leading-[0.9] text-ink">
               Let&apos;s build something great together
             </h2>
             <Link

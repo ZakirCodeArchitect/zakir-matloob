@@ -19,7 +19,7 @@ export function Testimonials() {
             <span className="flex size-11 items-center justify-center rounded-2xl bg-orange text-white">
               <Quote className="size-5" />
             </span>
-            <h2 className="font-condensed text-6xl md:text-8xl">Testimonials</h2>
+            <h2 className="font-condensed text-5xl sm:text-6xl md:text-8xl">Testimonials</h2>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-muted">
             Hear from people who have sat in the rooms where the work had to hold.
@@ -28,7 +28,7 @@ export function Testimonials() {
 
         <div className="mt-14 grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
-            <div className="relative mx-auto h-[380px] w-[280px]">
+            <div className="relative mx-auto h-[min(70vw,380px)] w-[min(70vw,280px)] max-w-full">
               {writtenTestimonials.map((person, i) => (
                 <article
                   key={person.name}
@@ -58,7 +58,7 @@ export function Testimonials() {
 
           <Reveal delay={0.1}>
             <p className="font-display text-7xl leading-none text-orange">&ldquo;</p>
-            <p className="max-w-xl text-2xl leading-relaxed text-ink md:text-3xl">
+            <p className="max-w-xl text-xl leading-relaxed break-words text-ink sm:text-2xl md:text-3xl">
               {current.quote}
             </p>
             <div className="mt-8 flex items-center gap-4">

@@ -13,7 +13,7 @@ export function JournalPreview() {
             <span className="flex size-11 items-center justify-center rounded-2xl bg-orange">
               <BookOpen className="size-5" />
             </span>
-            <h2 className="font-condensed text-6xl md:text-8xl">Journal</h2>
+            <h2 className="font-condensed text-5xl sm:text-6xl md:text-8xl">Journal</h2>
           </div>
           <p className="max-w-sm font-mono text-sm leading-relaxed text-white/70">
             Thoughts, lessons, and behind-the-scenes notes from building enterprise software and AI.

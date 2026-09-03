@@ -11,7 +11,7 @@ export function Experience() {
         <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">
           Experience
         </p>
-        <h2 className="mt-3 font-display text-4xl font-bold md:text-6xl">
+        <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl md:text-6xl">
           Professional milestones &amp; impact
         </h2>
       </div>

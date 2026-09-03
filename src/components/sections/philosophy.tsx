@@ -15,7 +15,7 @@ export function Philosophy() {
         <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">
           The engineer behind the code
         </p>
-        <h2 className="mt-3 font-display text-4xl font-bold md:text-6xl">
+        <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl md:text-6xl">
           A short film on my engineering philosophy
         </h2>
       </div>
@@ -26,7 +26,7 @@ export function Philosophy() {
           onClick={() => setOpen(true)}
           className="group relative block w-full overflow-hidden rounded-[28px]"
         >
-          <div className="relative aspect-[16/8] min-h-[240px]">
+          <div className="relative aspect-[16/9] w-full sm:aspect-[16/8]">
             <Image
               src="/images/philosophy-film-overshoulder.jpg"
               alt={`${site.name} engineering a software product`}

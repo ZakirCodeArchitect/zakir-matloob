@@ -1,6 +1,6 @@
 export const site = {
   name: "Zakir Matloob",
-  wordmark: "Zakir®",
+  wordmark: "Zakir",
   studio: "Code Architect",
   role: "Software Engineer · AI Engineer · SAP Consultant",
   shortRole: "Enterprise Solutions Engineer & AI Engineer",
@@ -366,46 +366,39 @@ export const journal = [
 
 export const videoTestimonials = [
   {
-    name: "Ayesha Rahman",
-    title: "Engagement Partner, Advisory",
+    name: "Farooq Sheikh",
+    title: "Co-Founder, HarAik",
+    quote:
+      "Zakir turned a messy internal process into a product that partners actually open every morning. The attention to state, security, and pacing is rare.",
+    image: "/images/testimonial-farooq-color.png",
+  },
+  {
+    name: "Arsalan Azhar",
+    title: "Engagement Partner, HarAik Global Associates",
     quote:
       "Zakir did not hand us a prototype. He handed us an operating system we could defend in an audit.",
-    image: "/images/testimonial-jessica.png",
+    image: "/images/testimonial-arsalan-color.png",
   },
   {
-    name: "Marcus Vialli",
-    title: "Head of Digital Products",
+    name: "Sania Tahir",
+    title: "Project Manager, HarAik Global Associates",
     quote:
       "He treats performance and permissions as product features, not as chores for later.",
-    image: "/images/testimonial-marcus.png",
-  },
-  {
-    name: "Dr. Anika Reinhardt",
-    title: "Research Lead, Legal Tech",
-    quote:
-      "The legal assistant cites the record. That single constraint is why the team trusts it.",
-    image: "/images/testimonial-anika.png",
-  },
-  {
-    name: "James Okonkwo",
-    title: "Operator, Mobility",
-    quote:
-      "The Malta build feels local in three languages and still refuses to overbook. That is craft.",
-    image: "/images/testimonial-james.png",
+    image: "/images/testimonial-sania-color.png",
   },
 ];
 
 export const writtenTestimonials = [
   {
-    name: "Daniel Carter",
-    role: "Founder of Flowbit",
+    name: "Daren",
+    role: "Explore Malta Rentals",
     quote:
       "Zakir turned a messy internal process into a product that partners actually open every morning. The attention to state, security, and pacing is rare.",
     image: "/images/illus-daniel.png",
   },
   {
     name: "Omar Haddad",
-    role: "Product Lead, Northwind Labs",
+    role: "Product Lead, Taleemabad",
     quote:
       "He is the engineer you want in the room when AI meets a real workflow. No theatre, just systems that hold.",
     image: "/images/illus-omar.png",

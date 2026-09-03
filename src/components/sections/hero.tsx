@@ -27,7 +27,7 @@ export function Hero() {
 
       <HeroTopBar />
 
-      <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col px-5 pb-28 pt-24 md:px-8 md:pb-32 md:pt-28">
+      <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col px-5 pb-36 pt-24 md:px-8 md:pb-32 md:pt-28">
         <div className="relative mx-auto grid w-full max-w-6xl flex-1 items-center gap-10 lg:grid-cols-[1fr_minmax(280px,420px)] lg:gap-8 xl:gap-12">
           <div className="order-1 flex flex-col justify-center gap-10 lg:gap-14">
             <div className="max-w-[920px] pt-6 md:pt-0 lg:pt-0">
@@ -134,7 +134,7 @@ function HeroTopBar() {
 
 function SocialRail() {
   return (
-    <div className="absolute bottom-8 left-5 z-30 flex gap-2 md:bottom-10 md:left-8">
+    <div className="absolute bottom-[4.75rem] left-1/2 z-30 flex -translate-x-1/2 gap-2 sm:bottom-20 md:bottom-10 md:left-8 md:translate-x-0">
       <SocialIcon href={site.socials.github} label="GitHub">
         <Github className="size-3.5" />
       </SocialIcon>
@@ -173,7 +173,7 @@ function SocialIcon({
 function HeroDock() {
   const pathname = usePathname();
   return (
-    <nav className="absolute bottom-6 left-1/2 z-40 flex -translate-x-1/2 items-center gap-1 rounded-full border border-black/8 bg-white/55 p-1.5 shadow-[0_14px_40px_rgba(40,30,20,0.12)] backdrop-blur-xl md:bottom-8">
+    <nav className="absolute bottom-5 left-1/2 z-40 flex max-w-[calc(100%-1.5rem)] -translate-x-1/2 items-center gap-0.5 overflow-x-auto rounded-full border border-black/8 bg-white/55 p-1 shadow-[0_14px_40px_rgba(40,30,20,0.12)] backdrop-blur-xl [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:bottom-6 sm:gap-1 sm:p-1.5 md:bottom-8">
       {dock.map((item) => {
         const active = pathname === item.href;
         return (
@@ -181,7 +181,7 @@ function HeroDock() {
             key={item.href}
             href={item.href}
             className={cn(
-              "rounded-full px-3.5 py-2 text-xs font-medium transition md:px-5 md:text-sm",
+              "shrink-0 rounded-full px-2.5 py-1.5 text-[11px] font-medium transition sm:px-3.5 sm:py-2 sm:text-xs md:px-5 md:text-sm",
               active
                 ? "bg-orange text-white shadow-[0_8px_20px_rgba(255,77,28,0.3)]"
                 : "text-ink/75 hover:bg-white hover:text-ink",
